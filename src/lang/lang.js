@@ -11,6 +11,12 @@ export const LANG = {
     MODAL_SETTINGS: {
       TITLE: 'Настройки приложения',
       CHANGE_LANG: 'Отображение сайта на английском языке:'
+    },
+    AUTH: {
+      REG: {
+        ALERT_SUCCESS_REG_TITLE: 'Успешная регистрация!',
+        ALERT_SUCCESS_REG_DESC: 'Успешная регистрация!',
+      }
     }
   },
   EN: {

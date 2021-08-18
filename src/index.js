@@ -5,7 +5,8 @@ import { ChakraProvider } from "@chakra-ui/react"
 
 import { extendTheme } from "@chakra-ui/react"
 import { BrowserRouter as Router } from 'react-router-dom'
-
+import store from './redux/store';
+import { Provider } from 'react-redux'
 
 
 // 2. Call `extendTheme` and pass your custom values
@@ -25,9 +26,11 @@ const theme = extendTheme({
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <Router>
-        <App />
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
     </ChakraProvider>
   </React.StrictMode>,
   document.getElementById('root')
