@@ -24,3 +24,14 @@ export const authAPI = {
     )
   },
 }
+
+export const usersAPI = {
+  getUserByLogin(login) {
+    return (
+      instance
+        .get(`api/users/${login}`)
+        .then(response => ({ data: response.data, status: response.status }))
+    )
+  },
+ 
+}

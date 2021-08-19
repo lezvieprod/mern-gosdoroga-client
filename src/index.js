@@ -9,7 +9,6 @@ import store from './redux/store';
 import { Provider } from 'react-redux'
 
 
-// 2. Call `extendTheme` and pass your custom values
 const theme = extendTheme({
   styles: {
     global: {

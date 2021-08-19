@@ -33,9 +33,6 @@ import { authAPI } from "../../api/api";
 const initialState = {
   appData: {},
   isAppReady: false,
-  isAuthenticated: false,
-  token: null,
-  userId: null,
   isReject: false,
   rejectData: {},
 }
@@ -51,11 +48,12 @@ const app = createSlice({
       state.isFetching = false
       state.rejectData = {}
     },
-    setCurrentUser(state, action) {
-      state.token = action.payload.token
-      state.userId = action.payload.userId
-      state.isAuthenticated = true
-    },
+    // setCurrentUser(state, action) {
+    //   state.token = action.payload.token
+    //   state.userId = action.payload.userId
+    //   state.userLogin = action.payload.userLogin
+    //   state.isAuthenticated = true
+    // },
     setAppIsReady(state, action) {
       state.isAppReady = action.payload
     }

@@ -15,8 +15,12 @@ export const LANG = {
     AUTH: {
       REG: {
         ALERT_SUCCESS_REG_TITLE: 'Успешная регистрация!',
-        ALERT_SUCCESS_REG_DESC: 'Успешная регистрация!',
-      }
+        ALERT_SUCCESS_REG_DESC: 'Теперь вы можете авторизоваться, используя введенные данные при регистрации',
+      },
+      LOGIN: {
+        ALERT_SUCCESS_LOGIN_TITLE: 'Вы успешно авторизовались',
+        ALERT_SUCCESS_LOGIN_DESC: 'Добро пожаловать!',
+      },
     }
   },
   EN: {

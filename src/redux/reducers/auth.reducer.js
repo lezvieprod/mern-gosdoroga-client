@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { authAPI } from "../../api/api";
+import { authAPI, usersAPI } from "../../api/api";
 
 export const sendRegistrationDataThunk = createAsyncThunk(
   'sendRegistrationData',
@@ -30,8 +30,29 @@ export const sendLoginDataThunk = createAsyncThunk(
   }
 )
 
+export const getUserByLoginThunk = createAsyncThunk(
+  'sendLoginData',
+  async (data, { rejectWithValue }) => {
+    try {
+      return await usersAPI.getUserByLogin(data);
+    } catch (err) {
+      if (!err.response) {
+        throw err
+      }
+      return rejectWithValue(err.response.data)
+    }
+
+  }
+)
+
 const initialState = {
   authData: {},
+  currentUser: {},
+  isAuthenticated: false,
+  token: null,
+  userId: null,
+  userLogin: '',
+  /* == SYSTEM == */
   isFetching: false,
   isFetched: false,
   isReject: false,
@@ -48,6 +69,12 @@ const auth = createSlice({
       state.isReject = false
       state.isFetching = false
       state.rejectData = {}
+    },
+    setCurrentUser(state, action) {
+      state.token = action.payload.token
+      state.userId = action.payload.userId
+      state.userLogin = action.payload.userLogin
+      state.isAuthenticated = true
     },
   },
   extraReducers: {
@@ -78,8 +105,22 @@ const auth = createSlice({
       state.isFetching = false
       state.isFetched = false
     },
+    // time
+    [getUserByLoginThunk.pending]: (state) => { state.isFetching = true; state.isFetched = false },
+    [getUserByLoginThunk.fulfilled]: (state, action) => {
+      state.currentUser = { ...action.payload.data, status: action.payload.status }
+      state.isReject = false
+      state.isFetching = false
+      state.isFetched = true
+    },
+    [getUserByLoginThunk.rejected]: (state, action) => {
+      state.rejectData = action.payload
+      state.isReject = true
+      state.isFetching = false
+      state.isFetched = false
+    },
   }
 })
 
 export default auth.reducer
-export const { clearStateAuth } = auth.actions
+export const { clearStateAuth, setCurrentUser} = auth.actions

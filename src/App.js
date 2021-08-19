@@ -1,33 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container } from "@chakra-ui/react";
 import { NavContainer } from './containers/Nav/NavContainer';
-import { Route } from 'react-router-dom';
-import { LoginContainer } from './containers/Auth/LoginContainer';
-import { RegContainer } from './containers/Auth/RegContainer';
+import { useAuth } from './hooks/auth.hook';
+import { Preloader } from './components/common/Preloader';
+import { useRoutes } from './routes';
 import { useDispatch, useSelector } from 'react-redux';
+import { getUserByLoginThunk } from './redux/reducers/auth.reducer';
 
 
 function App() {
+  const { isAuthenticated, isAppReady } = useAuth()
+  const routes = useRoutes(isAuthenticated)
 
-  const {isAppReady, isAuthenticated} = useSelector(state => state.app)
   const dispatch = useDispatch()
+  const {currentUser} = useSelector(state => state.auth)
+  const state = useSelector(state => state)
+  console.log('state', state);
 
+
+  if (!isAppReady) {
+    return <Preloader />
+  }
 
 
   return (
     <div className="App">
       <NavContainer />
       <Container maxW={'1200px'}>
-        <Route path={'/auth/login'}>
-          <Container mt={4} p={0}>
-            <LoginContainer />
-          </Container>
-        </Route>
-        <Route path={'/auth/registration'}>
-          <Container mt={4} p={0}>
-            <RegContainer />
-          </Container>
-        </Route>
+        {currentUser._id}
+        {routes}
       </Container>
     </div>
   );
