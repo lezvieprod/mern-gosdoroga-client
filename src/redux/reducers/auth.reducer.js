@@ -31,7 +31,7 @@ export const sendLoginDataThunk = createAsyncThunk(
 )
 
 export const getUserByLoginThunk = createAsyncThunk(
-  'sendLoginData',
+  'getUserByLogin',
   async (data, { rejectWithValue }) => {
     try {
       return await usersAPI.getUserByLogin(data);
@@ -74,7 +74,7 @@ const auth = createSlice({
       state.token = action.payload.token
       state.userId = action.payload.userId
       state.userLogin = action.payload.userLogin
-      state.isAuthenticated = true
+      // state.isAuthenticated = true.
     },
   },
   extraReducers: {
@@ -112,6 +112,7 @@ const auth = createSlice({
       state.isReject = false
       state.isFetching = false
       state.isFetched = true
+      state.isAuthenticated = true
     },
     [getUserByLoginThunk.rejected]: (state, action) => {
       state.rejectData = action.payload

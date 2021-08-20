@@ -4,7 +4,7 @@ export const LANG = {
       LOGO: 'ГосДороги'
     },
     NAV: {
-      CLAIM: 'Заявки',
+      POSTS: 'Посты',
       SETTINGS: 'Настройки',
       SIGN_IN: 'Войти'
     },
@@ -28,7 +28,7 @@ export const LANG = {
       LOGO: 'GosDorogi'
     },
     NAV: {
-      CLAIM: 'Claims',
+      POSTS: 'Posts',
       SETTINGS: 'Settings',
       SIGN_IN: 'Sign In'
     },
