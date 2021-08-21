@@ -74,7 +74,6 @@ const auth = createSlice({
       state.token = action.payload.token
       state.userId = action.payload.userId
       state.userLogin = action.payload.userLogin
-      // state.isAuthenticated = true.
     },
   },
   extraReducers: {

@@ -1,38 +1,63 @@
 import { Container } from '@chakra-ui/react';
 import React from 'react'
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import { UsersContainer } from './admin/containers/Users/UsersContainer';
+import { AdminLayout } from './admin/layouts/Admin.layout';
 import { PageUndefined } from './components/common/PageUndefined';
 import { LoginContainer } from './containers/Auth/LoginContainer';
 import { RegContainer } from './containers/Auth/RegContainer';
-import { useAuth } from './hooks/auth.hook';
+import { AuthLayout } from './layouts/Auth.layout';
+import { MainLayout } from './layouts/Main.layout';
 
 
 export const useRoutes = (isAuthenticated, accessLevel) => {
   return (
     <Switch>
       <Route path={'/auth/login'}>
-        <Container mt={4} p={0}>
+        <AuthLayout>
           {
             isAuthenticated
               ? 'Вы уже авторизованы'
               : <LoginContainer />
           }
-        </Container>
+        </AuthLayout>
       </Route>
       <Route path={'/auth/registration'}>
-        <Container mt={4} p={0}>
+        <AuthLayout>
           {
             isAuthenticated
               ? 'Вы уже авторизованы'
               : <RegContainer />
           }
-        </Container>
+        </AuthLayout>
       </Route>
-      <AdminRoute exact path={'/admin/dashboard'} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
-        Здесь будет админ панель
+      <Route exact path={'/'}>
+        <MainLayout>
+          Главная страница
+        </MainLayout>
+      </Route>
+      <Route path={'/posts'}>
+        <MainLayout>
+          posts
+        </MainLayout>
+      </Route>
+      <AdminRoute exact path={'/admin'} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
+        <AdminLayout>
+          Главная страница админ панели
+        </AdminLayout>
       </AdminRoute>
-      <Route path={'*'}>
-        <Container mt={4} p={0}>
+      <AdminRoute exact path={'/admin/users'} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
+        <AdminLayout>
+          <UsersContainer />
+        </AdminLayout>
+      </AdminRoute>
+      <AdminRoute path={'/admin/posts'} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
+        <AdminLayout>
+          posts
+        </AdminLayout>
+      </AdminRoute>
+      <Route exact path={'*'}>
+        <Container my={12} p={0}>
           <PageUndefined />
         </Container>
       </Route>
@@ -42,11 +67,10 @@ export const useRoutes = (isAuthenticated, accessLevel) => {
 }
 
 const AdminRoute = ({ children, isAuthenticated, accessLevel, ...rest }) => {
-  console.log(accessLevel);
   return (
     <Route
       {...rest}
-      render={() => isAuthenticated && accessLevel === 5 ? children : <PageUndefined />}
+      render={() => isAuthenticated && accessLevel >= 3 ? children : <PageUndefined />}
     />
   );
 }

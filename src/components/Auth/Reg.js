@@ -1,4 +1,4 @@
-import { Box, Button, Container, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Input, VStack } from '@chakra-ui/react';
+import { Box, Button, Container, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Input, useColorModeValue, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
@@ -10,7 +10,7 @@ export const Reg = ({ onSubmitHandle, isFetching }) => {
 
   return (
 
-    <Box bgColor={'white'} p={6} borderRadius={'xl'}>
+    <Box  bg={useColorModeValue("#FCFCFC", "gray.900")} p={6} borderRadius={'xl'}>
       <Box mb={6}>
         <Heading as={'h1'} size={'lg'}>Регистрация</Heading>
       </Box>

@@ -1,4 +1,4 @@
-import { Box, Button, chakra, Container, Heading, HStack, Icon, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList, Switch, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, chakra, Container, Heading, HStack, Icon, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList, Switch, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/auth.hook';
@@ -17,25 +17,25 @@ export const Nav = () => {
   const handleOnSwitch = (e) => e.target.checked ? setNewLang('EN') : setNewLang('RU')
 
 
-
+  //
 
   return (
-    <Box h={'65px'} bgColor={'white'} boxShadow="base">
+    <Box h={'65px'} bg={useColorModeValue("#FCFCFC", "gray.900")}  boxShadow="base">
       <Container maxW={'1200px'} h={'100%'}>
         <Box d={'flex'} justifyContent={'space-between'} h={'100%'}>
           <Heading as="h2" size="md">
-            <RouteLink to={'/'} px={'0.5rem'} d={'flex'} _hover={{ bgColor: '#f4f4f4' }} h={'100%'} alignItems={'center'}>
+            <RouteLink to={'/'} px={'0.5rem'} d={'flex'} h={'100%'} alignItems={'center'}>
               {renderText(lang).COMMON.LOGO} <Icon as={VscRocket} ml={2} />
             </RouteLink>
           </Heading>
           <Box d={'flex'}>
             <HStack spacing="14px">
-              <RouteLink to={'/posts'} px={'0.5rem'} d={'flex'} _hover={{ bgColor: '#f4f4f4' }} h={'100%'} alignItems={'center'}>
+              <RouteLink to={'/posts'} px={'0.5rem'} d={'flex'} h={'100%'} alignItems={'center'}>
                 {renderText(lang).NAV.POSTS}
               </RouteLink>
               {
                 !isAuthenticated
-                  ? <RouteLink to={'/auth/login'} px={'0.5rem'} d={'flex'} _hover={{ bgColor: '#f4f4f4' }} h={'100%'} alignItems={'center'}>
+                  ? <RouteLink to={'/auth/login'} px={'0.5rem'} d={'flex'}  h={'100%'} alignItems={'center'}>
                     {renderText(lang).NAV.SIGN_IN}
                   </RouteLink>
                   : <Menu placement={'bottom-end'}>
@@ -47,7 +47,7 @@ export const Nav = () => {
                           alignItems: 'center'
                         },
                       }}
-                      cursor={'pointer'} px={'0.5rem'} d={'flex'} _hover={{ bgColor: '#f4f4f4' }} h={'100%'} alignItems={'center'}
+                      cursor={'pointer'} px={'0.5rem'} d={'flex'}  h={'100%'} alignItems={'center'}
                     >
                       {userLogin} <Icon as={VscChevronDown} ml={2} />
                     </MenuButton>
@@ -56,7 +56,7 @@ export const Nav = () => {
                         accessLevel === 5 &&
                         <>
                           <MenuGroup title={`Уровень доступа ${accessLevel}`}>
-                            <MenuItem as={Link} to={'/admin/dashboard'}>Управление приложением</MenuItem>
+                            <MenuItem as={Link} to={'/admin'}>Управление приложением</MenuItem>
                             <MenuItem>Создать уведомление</MenuItem>
                           </MenuGroup>
                           <MenuDivider />
@@ -71,7 +71,7 @@ export const Nav = () => {
                 //   ({userLogin}) logout
                 // </Button>
               }
-              <Box onClick={onOpen} cursor={'pointer'} px={'0.5rem'} _hover={{ bgColor: '#f4f4f4' }} h={'100%'} d={'flex'} alignItems={'center'}>
+              <Box onClick={onOpen} cursor={'pointer'} px={'0.5rem'} h={'100%'} d={'flex'} alignItems={'center'}>
                 <Box>
                   <Icon as={VscGlobe} w={5} h={5} />
                 </Box>
