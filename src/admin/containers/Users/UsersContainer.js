@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getUsersThunk } from '../../../redux/reducers/admin.reducer';
 import { Users } from '../../components/Users/Users';
+import { useAuth } from '../../../hooks/auth.hook';
+import { useThunk } from '../../../hooks/thunk.hook';
 
 export const UsersContainer = () => {
-  const {currentData} = useSelector(state => state.admin)
-  const dispatch = useDispatch()
+  const { currentData } = useSelector(state => state.admin)
+  const { token } = useAuth()
+  const { asyncThunk } = useThunk()
 
   useEffect(() => {
-    dispatch(getUsersThunk())
+    asyncThunk(getUsersThunk(token))
   }, [])
 
-  return <Users currentData={currentData}/>
+  return <Users currentData={currentData} />
 }
 

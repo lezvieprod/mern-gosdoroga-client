@@ -1,9 +1,9 @@
-import { useToast } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Login } from '../../components/Auth/Login';
 import { useAuth } from '../../hooks/auth.hook';
+import { useThunk } from '../../hooks/thunk.hook';
 import { clearStateAuth, sendLoginDataThunk } from '../../redux/reducers/auth.reducer';
 
 export const LoginContainer = () => {
@@ -12,22 +12,18 @@ export const LoginContainer = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { login } = useAuth()
-  const toast = useToast()
+  const { asyncThunk } = useThunk()
 
   const onSubmitHandle = async (data) => {
     try {
-      const { data: { token, userLogin, _id } } = await dispatch(sendLoginDataThunk(data)).unwrap()
+      const { data: { token, userLogin, _id } } = await asyncThunk(sendLoginDataThunk(data))
       await login(token, userLogin, _id)
       history.push('/')
-    } catch (e) {
-      toast({ title: e.title, description: e.message, status: "error", duration: 9000, isClosable: true })
-    }
+    } catch (e) { }
   }
 
   useEffect(() => {
-    return () => {
-      dispatch(clearStateAuth())
-    }
+    return () => dispatch(clearStateAuth())
   }, [history, dispatch])
 
   return <Login onSubmitHandle={onSubmitHandle} isFetching={isFetching} />

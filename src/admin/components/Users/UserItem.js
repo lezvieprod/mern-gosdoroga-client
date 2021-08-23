@@ -17,10 +17,8 @@ export const UserItem = ({ user }) => {
         color: useColorModeValue("gray.900", "gray.200"),
         boxShadow: "lg"
       }}
-      key={user._id}
       onClick={handleGoToProfile}
       cursor={'pointer'}
-
     >
       <Td>{user.userLogin}</Td>
       <Td>{user.email}</Td>

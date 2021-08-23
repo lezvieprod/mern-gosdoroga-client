@@ -79,7 +79,9 @@ const auth = createSlice({
   extraReducers: {
     [sendRegistrationDataThunk.pending]: (state) => { state.isFetching = true; state.isFetched = false },
     [sendRegistrationDataThunk.fulfilled]: (state, action) => {
+      console.log(action.payload);
       state.authData = { ...action.payload.data, status: action.payload.status }
+      console.log('after spread');
       state.isReject = false
       state.isFetching = false
       state.isFetched = true

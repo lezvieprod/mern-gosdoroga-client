@@ -5,7 +5,6 @@ import { UserItem } from './UserItem';
 export const Users = ({currentData}) => {
   return (
     <Table variant="simple">
-     
       <Thead>
         <Tr>
           <Th>Логин</Th>
@@ -17,9 +16,8 @@ export const Users = ({currentData}) => {
         </Tr>
       </Thead>
       <Tbody>
-        {currentData.users?.map(user => <UserItem user={user}/>) }
+        {currentData.users?.map(user => <UserItem key={user._id} user={user}/>) }
       </Tbody>
-     
     </Table>
   );
 }

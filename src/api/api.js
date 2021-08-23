@@ -33,10 +33,14 @@ export const usersAPI = {
         .then(response => ({ data: response.data, status: response.status }))
     )
   },
-  getUsers() {
+  getUsers(token) {
     return (
       instance
-        .get(`api/users`)
+        .get(`api/users`, {
+          headers: {
+            Authorization: 'Bearer ' + token
+          }
+        })
         .then(response => ({ data: response.data, status: response.status }))
     )
   }

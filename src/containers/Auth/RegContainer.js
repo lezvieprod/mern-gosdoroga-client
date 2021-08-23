@@ -40,7 +40,6 @@ export const RegContainer = () => {
     }
   }, [history, dispatch])
 
-
   if (isFetched && authData.status === 201) {
     return <CAlert
       alertTitle={renderText(lang).AUTH.REG.ALERT_SUCCESS_REG_TITLE}

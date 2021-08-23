@@ -2,10 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { usersAPI } from "../../api/api";
 
 export const getUsersThunk = createAsyncThunk(
-  'sendRegistrationData',
-  async (_, { rejectWithValue }) => {
+  'getUsers',
+  async (token, { rejectWithValue }) => {
     try {
-      return await usersAPI.getUsers();
+      return await usersAPI.getUsers(token);
     } catch (err) {
       if (!err.response) {
         throw err
@@ -31,7 +31,7 @@ const admin = createSlice({
   initialState,
   reducers: {
     clearStateAdmin(state, action = {}) {
-      state.authData = action.payload
+      state.currentData = action.payload
       state.isFetched = false
       state.isReject = false
       state.isFetching = false
@@ -56,4 +56,4 @@ const admin = createSlice({
 })
 
 export default admin.reducer
-export const { clearStateApp } = admin.actions
+export const { clearStateAdmin } = admin.actions

@@ -35,6 +35,8 @@ export const useAuth = () => {
 
   const login = useCallback(async (token, userLogin, id) => {
     await dispatch(getUserByLoginThunk(userLogin))
+    dispatch(setCurrentUser({ token, userId: id }))
+
     localStorage.setItem(storageName, JSON.stringify({
       token, userLogin, id
     }))
@@ -43,7 +45,7 @@ export const useAuth = () => {
   const logout = useCallback(() => {
     dispatch(setCurrentUser({ token: null, userId: null }))
     localStorage.removeItem(storageName)
-    history.go(0) // Переделать на использование без перезагрузки
+    history.go(0)
   }, [dispatch])
 
   useEffect(() => {
