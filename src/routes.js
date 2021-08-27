@@ -1,14 +1,17 @@
-import { Container } from '@chakra-ui/react';
-import React from 'react'
+import { Container, Grid, GridItem, SimpleGrid } from '@chakra-ui/react';
+import React, { lazy } from 'react'
 import { Route, Switch } from "react-router-dom";
-import { UsersContainer } from './admin/containers/Users/UsersContainer';
+
 import { AdminLayout } from './admin/layouts/Admin.layout';
-import { PageUndefined } from './components/common/PageUndefined';
-import { LoginContainer } from './containers/Auth/LoginContainer';
-import { RegContainer } from './containers/Auth/RegContainer';
 import { AuthLayout } from './layouts/Auth.layout';
 import { MainLayout } from './layouts/Main.layout';
 
+import { PageUndefined } from './components/common/PageUndefined';
+import PostsContainer from './containers/Posts/PostsContainer';
+
+const LoginContainer = lazy(() => import('./containers/Auth/LoginContainer'));
+const RegContainer = lazy(() => import('./containers/Auth/RegContainer'));
+const UsersContainer = lazy(() => import('./admin/containers/Users/UsersContainer'));
 
 export const useRoutes = (isAuthenticated, accessLevel) => {
   return (
@@ -33,7 +36,8 @@ export const useRoutes = (isAuthenticated, accessLevel) => {
       </Route>
       <Route exact path={'/'}>
         <MainLayout>
-          Главная страница
+          <PostsContainer/>
+        
         </MainLayout>
       </Route>
       <Route path={'/posts'}>

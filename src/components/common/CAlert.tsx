@@ -1,7 +1,14 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Text } from '@chakra-ui/react';
 import React from 'react';
 
-export const CAlert = ({ alertTitle, alertDescription, forAuth, ...props }) => {
+interface ICAlertProps {
+  alertTitle: string,
+  alertDescription: string,
+  forAuth: boolean,
+  initialTime?: number
+}
+
+export const CAlert: React.FC<ICAlertProps> = ({ alertTitle, alertDescription, forAuth, ...props }) => {
   return <Alert
     status="success"
     variant="subtle"

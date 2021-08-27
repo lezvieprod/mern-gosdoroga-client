@@ -14,13 +14,21 @@ export const authAPI = {
       instance
         .post(`api/auth/registration`, data)
         .then(response => ({ data: response.data, status: response.status }))
+        .catch(error => {
+          return Promise.reject({ data: error.response.data, status: error.response.status });
+        })
     )
   },
   sendLoginData(data) {
     return (
       instance
         .post(`api/auth/login`, data)
-        .then(response => ({ data: response.data, status: response.status }))
+        .then(response => {
+          return { data: response.data, status: response.status }
+        })
+        .catch(error => {
+          return Promise.reject({ data: error.response.data, status: error.response.status });
+        })
     )
   },
 }
@@ -31,6 +39,9 @@ export const usersAPI = {
       instance
         .get(`api/users/${login}`)
         .then(response => ({ data: response.data, status: response.status }))
+        .catch(error => {
+          return Promise.reject({ data: error.response.data, status: error.response.status });
+        })
     )
   },
   getUsers(token) {
@@ -42,6 +53,9 @@ export const usersAPI = {
           }
         })
         .then(response => ({ data: response.data, status: response.status }))
+        .catch(error => {
+          return Promise.reject({ data: error.response.data, status: error.response.status });
+        })
     )
   }
 

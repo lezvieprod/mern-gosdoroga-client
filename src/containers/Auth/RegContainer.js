@@ -9,9 +9,9 @@ import { useRedirectTimer } from '../../hooks/timer.hook';
 import { clearStateAuth, sendRegistrationDataThunk } from '../../redux/reducers/auth.reducer';
 
 
-export const RegContainer = () => {
+const RegContainer = () => {
 
-  const { authData, isFetched, isFetching } = useSelector(state => state.auth)
+  const { authData, isFetched, isFetching, isReject } = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const history = useHistory()
   const { initialTime, setInitialTime, setStartTimer } = useRedirectTimer('/auth/login')
@@ -27,7 +27,7 @@ export const RegContainer = () => {
   }
 
   useEffect(() => {
-    if (isFetched && authData.status === 201) {
+    if (isFetched && !isReject) {
       setInitialTime(3);
       setStartTimer(true);
     }
@@ -40,7 +40,7 @@ export const RegContainer = () => {
     }
   }, [history, dispatch])
 
-  if (isFetched && authData.status === 201) {
+  if (isFetched && !isReject) {
     return <CAlert
       alertTitle={renderText(lang).AUTH.REG.ALERT_SUCCESS_REG_TITLE}
       alertDescription={renderText(lang).AUTH.REG.ALERT_SUCCESS_REG_DESC}
@@ -53,4 +53,5 @@ export const RegContainer = () => {
 
 }
 
+export default RegContainer;
 

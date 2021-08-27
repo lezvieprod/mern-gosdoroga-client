@@ -3,16 +3,15 @@ import auth from "./reducers/auth.reducer"
 import app from "./reducers/app.reducer"
 import admin from "./reducers/admin.reducer"
 
-
-
-
-
 const reducers = combineReducers({
   app, auth, admin
 })
 
-export default configureStore({
+const store = configureStore({
   reducer: reducers
 });
 
+export default store
 
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

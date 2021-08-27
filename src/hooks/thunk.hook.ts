@@ -1,6 +1,7 @@
 import { useToast } from '@chakra-ui/react';
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux';
+import { isApiError } from '../utils/fetch';
 
 export const useThunk = () => {
 
@@ -11,7 +12,7 @@ export const useThunk = () => {
     try {
       return await dispatch(callback).unwrap()
     } catch (e) {
-      if (e && typeof e === 'object') {
+      if (isApiError(e)) {
         toast({ title: e.title, description: e.message, status: "error", duration: 5000, isClosable: true })
       } else {
         toast({
@@ -25,7 +26,7 @@ export const useThunk = () => {
     }
   }, [toast, dispatch])
 
-  return { asyncThunk }
+  return { asyncThunk } as const
 }
 
 

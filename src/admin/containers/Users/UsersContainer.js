@@ -5,7 +5,7 @@ import { Users } from '../../components/Users/Users';
 import { useAuth } from '../../../hooks/auth.hook';
 import { useThunk } from '../../../hooks/thunk.hook';
 
-export const UsersContainer = () => {
+const UsersContainer = () => {
   const { currentData } = useSelector(state => state.admin)
   const { token } = useAuth()
   const { asyncThunk } = useThunk()
@@ -17,3 +17,4 @@ export const UsersContainer = () => {
   return <Users currentData={currentData} />
 }
 
+export default UsersContainer;

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 
-export const useRedirectTimer = (path) => {
+export const useRedirectTimer = (path: string) => {
 
   const history = useHistory()
-  const [initialTime, setInitialTime] = useState(0);
-  const [startTimer, setStartTimer] = useState(false);
+  const [initialTime, setInitialTime] = useState<number>(0);
+  const [startTimer, setStartTimer] = useState<boolean>(false);
 
   useEffect(() => {
     if (initialTime > 0) {
@@ -20,5 +20,5 @@ export const useRedirectTimer = (path) => {
     }
   }, [initialTime, startTimer, history, path]);
 
-  return { setInitialTime, setStartTimer, initialTime }
+  return { setInitialTime, setStartTimer, initialTime } as const
 }
