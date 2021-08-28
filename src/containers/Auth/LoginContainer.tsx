@@ -26,9 +26,11 @@ const LoginContainer: React.FC = () => {
     } catch (e) { }
   }
 
-  // useEffect(() => {
-  //   return () => dispatch(clearStateAuth())
-  // }, [history, dispatch])
+  useEffect(() => {
+    return () => {
+      dispatch(clearStateAuth())
+    }
+  }, [history, dispatch])
 
   return <Login onSubmitHandle={onSubmitHandle} isFetching={isFetching} />
 }

@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { authAPI, usersAPI } from "../../api/api";
 import { IUser } from "../../models/user.interface";
-import { ILoginSubmit } from "../../types/auth.interface";
+import { ILoginSubmit, IRegSubmit } from "../../types/auth.interface";
 import { IRequestError } from "../../types/error.interface";
 import { isApiError } from "../../utils/fetch";
 
-export const sendRegistrationDataThunk = createAsyncThunk<any, ILoginSubmit, { rejectValue: IRequestError }>(
+export const sendRegistrationDataThunk = createAsyncThunk<any, IRegSubmit, { rejectValue: IRequestError }>(
   'sendRegistrationData',
   async (data, { rejectWithValue }) => {
     try {
@@ -54,7 +54,7 @@ interface ICurrentUser {
 }
 
 interface IState {
-  currentUser: IUser[],
+  currentUser: IUser,
   isAuthenticated: boolean,
   token: string,
   userId: string,
@@ -66,7 +66,7 @@ interface IState {
 }
 
 const initialState = {
-  currentUser: [],
+  currentUser: {},
   isAuthenticated: false,
   token: '',
   userId: '',
@@ -85,7 +85,7 @@ const auth = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    clearStateAuth(state, action: PayloadAction<ILoginSubmit[]>) {
+    clearStateAuth(state) {
       state.isFetched = false
       state.isReject = false
       state.isFetching = false
@@ -117,7 +117,6 @@ const auth = createSlice({
       state.isFetching = false
       state.isFetched = false
     })
-
 
     /* 
       *=== Авторизация ===*

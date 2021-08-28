@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { setAppIsReady } from '../redux/reducers/app.reducer'
 import { setCurrentUser } from '../redux/reducers/auth.reducer'
 import { getUserByLoginThunk } from '../redux/reducers/auth.reducer'
+import { RootState } from '../redux/store'
 
 
 /*
@@ -18,11 +19,11 @@ import { getUserByLoginThunk } from '../redux/reducers/auth.reducer'
  ==========
 */
 
-const storageName = 'currentUser'
+const storageName: string = 'currentUser'
 
 export const useAuth = () => {
 
-  const { currentUser: { userLogin, accessLevel }, token, userId, isAuthenticated, isAppReady } = useSelector(state => ({
+  const { currentUser: { userLogin, accessLevel }, token, userId, isAuthenticated, isAppReady } = useSelector((state: RootState) => ({
     currentUser: state.auth.currentUser,
     token: state.auth.token,
     userId: state.auth.userId,
@@ -33,9 +34,9 @@ export const useAuth = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const login = useCallback(async (token, userLogin, id) => {
+  const login = useCallback(async (token: string, userLogin: string, id: string) => {
     await dispatch(getUserByLoginThunk(userLogin))
-    dispatch(setCurrentUser({ token, userId: id }))
+    dispatch(setCurrentUser({ token, userId: id, userLogin: '' }))
 
     localStorage.setItem(storageName, JSON.stringify({
       token, userLogin, id
@@ -43,14 +44,14 @@ export const useAuth = () => {
   }, [dispatch])
 
   const logout = useCallback(() => {
-    dispatch(setCurrentUser({ token: null, userId: null }))
+    dispatch(setCurrentUser({ token: '', userId: '', userLogin: '' }))
     localStorage.removeItem(storageName)
     history.go(0)
   }, [dispatch])
 
   useEffect(() => {
     const loginOnAppInit = async () => {
-      const data = JSON.parse(localStorage.getItem(storageName))
+      const data = JSON.parse(localStorage.getItem(storageName) || '{}')
       if (data && data.token && !isAuthenticated) {
         await login(data.token, data.userLogin, data.id)
       }
@@ -68,5 +69,5 @@ export const useAuth = () => {
     isAuthenticated, // bool
     userLogin, // string
     accessLevel // number
-  }
+  } as const
 }

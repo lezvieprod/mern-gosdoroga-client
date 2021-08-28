@@ -1,29 +1,28 @@
-import { useToast } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Reg } from '../../components/Auth/Reg';
 import { CAlert } from '../../components/common/CAlert';
 import { useLang } from '../../hooks/lang.hook';
+import { useThunk } from '../../hooks/thunk.hook';
 import { useRedirectTimer } from '../../hooks/timer.hook';
 import { clearStateAuth, sendRegistrationDataThunk } from '../../redux/reducers/auth.reducer';
-
+import { RootState } from '../../redux/store';
+import { IRegSubmit } from '../../types/auth.interface';
 
 const RegContainer = () => {
 
-  const { authData, isFetched, isFetching, isReject } = useSelector(state => state.auth)
+  const { isFetched, isFetching, isReject } = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch()
   const history = useHistory()
   const { initialTime, setInitialTime, setStartTimer } = useRedirectTimer('/auth/login')
-  const toast = useToast()
   const { lang, renderText } = useLang()
+  const { asyncThunk } = useThunk()
 
-  const onSubmitHandle = async (data) => {
+  const onSubmitHandle = async (data: IRegSubmit) => {
     try {
-      await dispatch(sendRegistrationDataThunk(data)).unwrap()
-    } catch (e) {
-      toast({ title: e.title, description: e.message, status: "error", duration: 9000, isClosable: true })
-    }
+      await asyncThunk(sendRegistrationDataThunk(data))
+    } catch (e) { }
   }
 
   useEffect(() => {

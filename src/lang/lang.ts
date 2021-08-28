@@ -1,3 +1,4 @@
+
 export const LANG = {
   RU: {
     COMMON: {
@@ -35,6 +36,16 @@ export const LANG = {
     MODAL_SETTINGS: {
       TITLE: 'App settings',
       CHANGE_LANG: 'Displaying the site in English:'
+    },
+    AUTH: {
+      REG: {
+        ALERT_SUCCESS_REG_TITLE: 'Successful registration !',
+        ALERT_SUCCESS_REG_DESC: 'Now you can log in using the entered data during registration ',
+      },
+      LOGIN: {
+        ALERT_SUCCESS_LOGIN_TITLE: 'You have successfully logged in ',
+        ALERT_SUCCESS_LOGIN_DESC: 'Welcome!',
+      },
     }
   }
 }

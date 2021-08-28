@@ -3,11 +3,11 @@ import { LANG } from "../lang/lang"
 
 export const useLang = () => {
 
-  const currentLang = localStorage.getItem('lang')
-  const [lang, setLang] = useState('')
+  const currentLang = localStorage.getItem('lang') || '{}'
+  const [lang, setLang] = useState<string>('')
 
-  const createLang = useCallback((language) => {
-    if(!language) {
+  const createLang = useCallback((language: string) => {
+    if (!language) {
       setLang('RU')
       localStorage.setItem('lang', lang)
     } else {
@@ -15,9 +15,9 @@ export const useLang = () => {
     }
   }, [lang])
 
-  const renderText = (lang) => lang === 'EN' ? LANG.EN : LANG.RU;
+  const renderText = (lang: string) => lang === 'EN' ? LANG.EN : LANG.RU;
 
-  const setNewLang = (lang) => {
+  const setNewLang = (lang: string) => {
     setLang(lang)
     localStorage.setItem('lang', lang)
   }
@@ -26,7 +26,6 @@ export const useLang = () => {
     createLang(currentLang)
   }, [currentLang, createLang])
 
-
-  return { lang, renderText, setNewLang }
+  return { lang, renderText, setNewLang } as const
 
 }
