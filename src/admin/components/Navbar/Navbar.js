@@ -8,7 +8,7 @@ import { useAuth } from '../../../hooks/auth.hook';
 export const Navbar = ({ sidebar }) => {
 
   const { colorMode, toggleColorMode } = useColorMode()
-  const { logout, isAuthenticated, userLogin, accessLevel } = useAuth()
+  const { logout, userLogin } = useAuth()
 
   return (
     <Flex

@@ -1,8 +1,8 @@
-import { Box, Button, Container, Heading, StackDivider, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Container, Heading, Text, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-export const PageUndefined = () => {
+export const PageUndefined: React.FC = () => {
   const location = useLocation()
 
   return (

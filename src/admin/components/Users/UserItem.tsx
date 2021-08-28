@@ -1,8 +1,14 @@
 import { Td, Tr, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { IUser } from '../../../models/user.interface';
 
-export const UserItem = ({ user }) => {
+
+interface IUserItemProps {
+  user: IUser;
+}
+
+export const UserItem: React.FC<IUserItemProps> = ({ user }) => {
 
   const history = useHistory()
 
@@ -24,7 +30,7 @@ export const UserItem = ({ user }) => {
       <Td>{user.email}</Td>
       <Td isNumeric>{user.posts.length}</Td>
       <Td isNumeric>{user.verified}</Td>
-      <Td isNumeric color={user.accessLevel >= 3 && 'red'}>
+      <Td isNumeric>
         {user.accessLevel}
       </Td>
       <Td> actions </Td>

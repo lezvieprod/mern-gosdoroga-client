@@ -47,7 +47,7 @@ export const useAuth = () => {
     dispatch(setCurrentUser({ token: '', userId: '', userLogin: '' }))
     localStorage.removeItem(storageName)
     history.go(0)
-  }, [dispatch])
+  }, [dispatch, history])
 
   useEffect(() => {
     const loginOnAppInit = async () => {

@@ -1,13 +1,18 @@
 import React, { Suspense } from 'react'
-import {Box, Drawer, DrawerContent, DrawerOverlay, Progress, useColorModeValue, useDisclosure } from "@chakra-ui/react";
+import { Box, Drawer, DrawerContent, DrawerOverlay, Progress, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import { Navbar } from '../components/Navbar/Navbar';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
-export function AdminLayout({ children }) {
-  
+interface IAdminLayoutProps {
+  children: React.ReactNode;
+}
+
+export const AdminLayout: React.FC<IAdminLayoutProps> = ({ children }) => {
+
   const sidebar = useDisclosure();
-  const { isFetching } = useSelector(state => state.admin)
+  const { isFetching } = useSelector((state: RootState) => state.admin)
 
   return (
     <Box as="section" bg={useColorModeValue("#fff", "gray.700")} minH="100vh">

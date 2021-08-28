@@ -1,5 +1,5 @@
-import { Box, Button, chakra, Container, Heading, HStack, Icon, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList, Switch, useColorModeValue, useDisclosure } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { Box, chakra, Container, Heading, HStack, Icon, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import React, { ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/auth.hook';
 import { useLang } from '../../hooks/lang.hook';
@@ -8,19 +8,16 @@ import { VscChevronDown, VscGlobe, VscRocket } from "react-icons/vsc";
 
 const RouteLink = chakra(Link)
 
-export const Nav = () => {
+export const Nav: React.FC = () => {
 
   const { logout, isAuthenticated, userLogin, accessLevel } = useAuth()
   const { lang, renderText, setNewLang } = useLang()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const handleOnSwitch = (e) => e.target.checked ? setNewLang('EN') : setNewLang('RU')
-
-
-  //
+  const handleOnSwitch = (e: ChangeEvent<HTMLInputElement>) => e.target.checked ? setNewLang('EN') : setNewLang('RU')
 
   return (
-    <Box h={'65px'} bg={useColorModeValue("#FCFCFC", "gray.900")}  boxShadow="base">
+    <Box h={'65px'} bg={useColorModeValue("#FCFCFC", "gray.900")} boxShadow="base">
       <Container maxW={'1200px'} h={'100%'}>
         <Box d={'flex'} justifyContent={'space-between'} h={'100%'}>
           <Heading as="h2" size="md">
@@ -35,7 +32,7 @@ export const Nav = () => {
               </RouteLink>
               {
                 !isAuthenticated
-                  ? <RouteLink to={'/auth/login'} px={'0.5rem'} d={'flex'}  h={'100%'} alignItems={'center'}>
+                  ? <RouteLink to={'/auth/login'} px={'0.5rem'} d={'flex'} h={'100%'} alignItems={'center'}>
                     {renderText(lang).NAV.SIGN_IN}
                   </RouteLink>
                   : <Menu placement={'bottom-end'}>
@@ -47,7 +44,7 @@ export const Nav = () => {
                           alignItems: 'center'
                         },
                       }}
-                      cursor={'pointer'} px={'0.5rem'} d={'flex'}  h={'100%'} alignItems={'center'}
+                      cursor={'pointer'} px={'0.5rem'} d={'flex'} h={'100%'} alignItems={'center'}
                     >
                       {userLogin} <Icon as={VscChevronDown} ml={2} />
                     </MenuButton>

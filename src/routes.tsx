@@ -1,4 +1,4 @@
-import { Container, Grid, GridItem, SimpleGrid } from '@chakra-ui/react';
+import { Container } from '@chakra-ui/react';
 import React, { lazy } from 'react'
 import { Route, Switch } from "react-router-dom";
 
@@ -13,7 +13,19 @@ const LoginContainer = lazy(() => import('./containers/Auth/LoginContainer'));
 const RegContainer = lazy(() => import('./containers/Auth/RegContainer'));
 const UsersContainer = lazy(() => import('./admin/containers/Users/UsersContainer'));
 
-export const useRoutes = (isAuthenticated, accessLevel) => {
+interface IRoutesProps {
+  isAuthenticated: boolean,
+  accessLevel: number
+}
+
+interface IAdminRoute {
+  children: React.ReactNode,
+  isAuthenticated: boolean,
+  accessLevel: number,
+  [rest: string]: any
+}
+
+export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel }) => {
   return (
     <Switch>
       <Route path={'/auth/login'}>
@@ -36,8 +48,8 @@ export const useRoutes = (isAuthenticated, accessLevel) => {
       </Route>
       <Route exact path={'/'}>
         <MainLayout>
-          <PostsContainer/>
-        
+          <PostsContainer />
+
         </MainLayout>
       </Route>
       <Route path={'/posts'}>
@@ -70,7 +82,7 @@ export const useRoutes = (isAuthenticated, accessLevel) => {
   )
 }
 
-const AdminRoute = ({ children, isAuthenticated, accessLevel, ...rest }) => {
+const AdminRoute: React.FC<IAdminRoute> = ({ children, isAuthenticated, accessLevel, ...rest }) => {
   return (
     <Route
       {...rest}

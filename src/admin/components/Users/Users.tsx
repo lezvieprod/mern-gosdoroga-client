@@ -1,8 +1,13 @@
-import { Table, TableCaption, Tbody, Td, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react';
+import { Table, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import React from 'react';
+import { IUser } from '../../../models/user.interface';
 import { UserItem } from './UserItem';
 
-export const Users = ({currentData}) => {
+interface IUsersProps {
+  currentData: IUser[]
+}
+
+export const Users: React.FC<IUsersProps> = ({ currentData }) => {
   return (
     <Table variant="simple">
       <Thead>
@@ -16,7 +21,7 @@ export const Users = ({currentData}) => {
         </Tr>
       </Thead>
       <Tbody>
-        {currentData.users?.map(user => <UserItem key={user._id} user={user}/>) }
+        {currentData.map(user => <UserItem key={user._id} user={user} />)}
       </Tbody>
     </Table>
   );

@@ -6,7 +6,11 @@ import { Link } from 'react-router-dom';
 import { Preloader } from '../components/common/Preloader';
 import { useLang } from '../hooks/lang.hook';
 
-export const AuthLayout = ({ children }) => {
+interface IAuthLayoutProps {
+  children: React.ReactNode
+}
+
+export const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
 
   const { renderText, lang } = useLang()
 

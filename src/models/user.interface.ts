@@ -1,9 +1,10 @@
 import { IPost } from "./post.interface";
 
 export interface IUser {
+  _id?: string,
   accessLevel: number,
   verified: number,
-  post: IPost[],
+  posts: IPost[],
   email: string,
   password?: string,
   userLogin: string,

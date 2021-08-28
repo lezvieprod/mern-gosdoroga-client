@@ -3,10 +3,11 @@ import { authAPI, usersAPI } from "../../api/api";
 import { IUser } from "../../models/user.interface";
 import { ILoginSubmit, IRegSubmit } from "../../types/auth.interface";
 import { IRequestError } from "../../types/error.interface";
+import { ISystemState } from "../../types/state.interface";
 import { isApiError } from "../../utils/fetch";
 
 export const sendRegistrationDataThunk = createAsyncThunk<any, IRegSubmit, { rejectValue: IRequestError }>(
-  'sendRegistrationData',
+  'auth/sendRegistrationData',
   async (data, { rejectWithValue }) => {
     try {
       return await authAPI.sendRegistrationData(data);
@@ -20,7 +21,7 @@ export const sendRegistrationDataThunk = createAsyncThunk<any, IRegSubmit, { rej
 )
 
 export const sendLoginDataThunk = createAsyncThunk<any, ILoginSubmit, { rejectValue: IRequestError }>(
-  'sendLoginData',
+  'auth/sendLoginData',
   async (data, { rejectWithValue }) => {
     try {
       return await authAPI.sendLoginData(data);
@@ -34,7 +35,7 @@ export const sendLoginDataThunk = createAsyncThunk<any, ILoginSubmit, { rejectVa
 )
 
 export const getUserByLoginThunk = createAsyncThunk<any, string, { rejectValue: IRequestError }>(
-  'getUserByLogin',
+  'auth/getUserByLogin',
   async (data, { rejectWithValue }) => {
     try {
       return await usersAPI.getUserByLogin(data);
@@ -53,16 +54,12 @@ interface ICurrentUser {
   userLogin: string,
 }
 
-interface IState {
+interface IState extends ISystemState {
   currentUser: IUser,
   isAuthenticated: boolean,
   token: string,
   userId: string,
-  userLogin: string,
-  isFetching: boolean,
-  isFetched: boolean,
-  isReject: boolean,
-  rejectData: IRequestError,
+  userLogin: string
 }
 
 const initialState = {

@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
 
-const PostItem = () => {
+const PostItem: React.FC = () => {
   return (
     <Box>
       PostItem
