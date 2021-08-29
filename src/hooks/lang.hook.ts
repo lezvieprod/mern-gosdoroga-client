@@ -1,13 +1,18 @@
 import { useCallback, useEffect, useState } from "react"
+import { useHistory } from "react-router-dom"
 import { LANG } from "../lang/lang"
 
 export const useLang = () => {
 
   const currentLang = localStorage.getItem('lang') || '{}'
   const [lang, setLang] = useState<string>('')
+  const history = useHistory()
 
   const createLang = useCallback((language: string) => {
+    console.log(language);
+    
     if (!language) {
+      console.log('useCallback');
       setLang('RU')
       localStorage.setItem('lang', lang)
     } else {
@@ -20,6 +25,7 @@ export const useLang = () => {
   const setNewLang = (lang: string) => {
     setLang(lang)
     localStorage.setItem('lang', lang)
+    history.go(0)
   }
 
   useEffect(() => {

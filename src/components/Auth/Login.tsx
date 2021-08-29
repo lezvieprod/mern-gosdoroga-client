@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, useColorModeValue, VStack } from '@chakra-ui/react';
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, HStack, Input, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -16,9 +16,9 @@ export const Login: React.FC<ILoginProps> = ({ onSubmitHandle, isFetching }) => 
   const onSubmit = handleSubmit(data => onSubmitHandle(data))
 
   return (
-    <Box bg={useColorModeValue("#FCFCFC", "gray.900")} p={6} borderRadius={'xl'}>
+    <>
       <Box mb={6}>
-        <Heading as={'h1'} size={'lg'}>Авторизация</Heading>
+        <Heading as={'h1'} size={'lg'}>Вход в аккаунт</Heading>
       </Box>
       <form onSubmit={onSubmit}>
         <VStack spacing={6} align="stretch" mb={6}>
@@ -37,16 +37,16 @@ export const Login: React.FC<ILoginProps> = ({ onSubmitHandle, isFetching }) => 
             </FormErrorMessage>
           </FormControl>
         </VStack>
-        <VStack spacing={2} align="stretch">
-          <Button type={'submit'} colorScheme="blue" variant="solid" isLoading={isFetching}>
+        <HStack spacing={2} align="stretch" alignItems={'center'} justifyContent={'space-between'}>
+          <Button type={'submit'} colorScheme="blue" px={12} variant="solid" isLoading={isFetching}>
             Войти
           </Button>
-          <Button to={'/auth/registration'} as={Link} colorScheme="blue" variant="outline">
+          <Box as={Link} to={'/auth/registration'} borderBottom={'1px solid'} borderColor={'blue.400'}>
             Нет аккаунта?
-          </Button>
-        </VStack>
+          </Box>
+        </HStack>
       </form>
-    </Box>
+    </>
   );
 }
 

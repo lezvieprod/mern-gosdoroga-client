@@ -1,4 +1,4 @@
-import { Container, Heading, Icon, Text } from '@chakra-ui/react';
+import { Box, Container, Heading, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
 import { Suspense } from 'react';
 import { VscRocket } from 'react-icons/vsc';
@@ -16,13 +16,15 @@ export const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
 
   return (
     <Suspense fallback={<Preloader forInit />}>
-      <Container mt={10} p={0}>
+      <Container mt={10} p={0} variant={'modal'}>
         <Heading as="h2" size="lg" mb={8} d={'flex'} justifyContent={'center'} alignItems={'center'} >
           {renderText(lang).COMMON.LOGO} <Icon as={VscRocket} ml={2} />
         </Heading>
-        {children}
+        <Box bg={'#FCFCFC'} p={8} borderRadius={'xl'} boxShadow={'md'}>
+          {children}
+        </Box>
         <Text size="sm" mt={8} d={'flex'} justifyContent={'center'} alignItems={'center'} color={'blue.600'} >
-          <Link to={'/'}> Назад на главную </Link>
+          <Box as={Link} to={'/'} borderBottom={'1px solid'} borderColor={'blue.400'}> Назад на главную </Box>
         </Text>
       </Container>
     </Suspense>

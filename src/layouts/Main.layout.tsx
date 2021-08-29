@@ -10,7 +10,7 @@ export const MainLayout: React.FC<IMainLayoutProps> = ({ children }) => {
   return (
     <>
       <NavContainer />
-      <Container maxW={'1200px'}>{children}</Container>
+      <Container>{children}</Container>
     </>
   );
 }

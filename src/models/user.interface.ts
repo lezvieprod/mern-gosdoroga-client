@@ -1,7 +1,7 @@
 import { IPost } from "./post.interface";
 
 export interface IUser {
-  _id?: string,
+  readonly _id?: string,
   accessLevel: number,
   verified: number,
   posts: IPost[],
