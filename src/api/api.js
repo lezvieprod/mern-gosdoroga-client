@@ -12,7 +12,12 @@ export const authAPI = {
   sendRegistrationData(data) {
     return (
       instance
-        .post(`api/auth/registration`, data)
+        .post(`api/auth/registration`, data, {
+          header: {
+            'Accept': 'application/json',
+            'Content-Type': 'multipart/form-data',
+          },
+        })
         .then(response => ({ data: response.data, status: response.status }))
         .catch(error => {
           return Promise.reject({ data: error.response.data, status: error.response.status });

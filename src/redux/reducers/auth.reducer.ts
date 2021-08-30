@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { authAPI, usersAPI } from "../../api/api";
 import { IUser } from "../../models/user.interface";
-import { ILoginSubmit, IRegSubmit } from "../../types/auth.interface";
+import { ILoginSubmit } from "../../types/auth.interface";
 import { IRequestError } from "../../types/error.interface";
 import { ISystemState } from "../../types/state.interface";
 import { isApiError } from "../../utils/fetch";
 
-export const sendRegistrationDataThunk = createAsyncThunk<any, IRegSubmit, { rejectValue: IRequestError }>(
+export const sendRegistrationDataThunk = createAsyncThunk<any, FormData, { rejectValue: IRequestError }>(
   'auth/sendRegistrationData',
   async (data, { rejectWithValue }) => {
     try {

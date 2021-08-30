@@ -49,7 +49,6 @@ export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel })
       <Route exact path={'/'}>
         <MainLayout>
           <PostsContainer />
-
         </MainLayout>
       </Route>
       <Route path={'/posts'}>

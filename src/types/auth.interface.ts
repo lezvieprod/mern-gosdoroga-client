@@ -6,5 +6,6 @@ export interface IRegSubmit {
   email: string,
   password: string,
   userLogin: string,
-  password_repeat: string | number
+  userPhoto: any,
+  password_repeat?: string | number
 }

@@ -20,7 +20,7 @@ export const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
         <Heading as="h2" size="lg" mb={8} d={'flex'} justifyContent={'center'} alignItems={'center'} >
           {renderText(lang).COMMON.LOGO} <Icon as={VscRocket} ml={2} />
         </Heading>
-        <Box bg={'#FCFCFC'} p={8} borderRadius={'xl'} boxShadow={'md'}>
+        <Box bg={'#FCFCFC'} p={8} borderRadius={'lg'} boxShadow={'md'}>
           {children}
         </Box>
         <Text size="sm" mt={8} d={'flex'} justifyContent={'center'} alignItems={'center'} color={'blue.600'} >

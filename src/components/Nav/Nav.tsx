@@ -1,4 +1,4 @@
-import { Box, Container, Heading, HStack, Icon, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList, useColorModeValue} from '@chakra-ui/react';
+import { Box, Container, Heading, HStack, Icon, Image, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList, useColorModeValue} from '@chakra-ui/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/auth.hook';
@@ -8,7 +8,7 @@ import { NavButton } from '../common/custom/NavButton';
 
 export const Nav: React.FC = () => {
 
-  const { logout, isAuthenticated, userLogin, accessLevel } = useAuth()
+  const { logout, isAuthenticated, userLogin, accessLevel, userPhoto } = useAuth()
   const { lang, renderText } = useLang()
 
   return (
@@ -41,7 +41,8 @@ export const Nav: React.FC = () => {
                       }}
                       cursor={'pointer'} px={'0.5rem'} d={'flex'} h={'100%'} alignItems={'center'}
                     >
-                      {userLogin} <Icon as={VscChevronDown} ml={2} />
+                     <Image src={userPhoto!} boxSize={8} objectFit={'cover'} alt={''} borderRadius={'50px'} mr={2}/>  
+                     {userLogin} <Icon as={VscChevronDown} ml={2} />
                     </MenuButton>
                     <MenuList>
                       {

@@ -8,5 +8,6 @@ export interface IUser {
   email: string,
   password?: string,
   userLogin: string,
+  userPhoto: string,
   readonly regDate: number
 }

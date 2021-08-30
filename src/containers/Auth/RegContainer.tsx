@@ -8,7 +8,6 @@ import { useThunk } from '../../hooks/thunk.hook';
 import { useRedirectTimer } from '../../hooks/timer.hook';
 import { clearStateAuth, sendRegistrationDataThunk } from '../../redux/reducers/auth.reducer';
 import { RootState } from '../../redux/store';
-import { IRegSubmit } from '../../types/auth.interface';
 
 const RegContainer = () => {
 
@@ -19,7 +18,7 @@ const RegContainer = () => {
   const { lang, renderText } = useLang()
   const { asyncThunk } = useThunk()
 
-  const onSubmitHandle = async (data: IRegSubmit) => {
+  const onSubmitHandle = async (data: FormData) => {
     try {
       await asyncThunk(sendRegistrationDataThunk(data))
     } catch (e) { }

@@ -23,7 +23,7 @@ const storageName: string = 'currentUser'
 
 export const useAuth = () => {
 
-  const { currentUser: { userLogin, accessLevel }, token, userId, isAuthenticated, isAppReady } = useSelector((state: RootState) => ({
+  const { currentUser: { userLogin, accessLevel, userPhoto }, token, userId, isAuthenticated, isAppReady } = useSelector((state: RootState) => ({
     currentUser: state.auth.currentUser,
     token: state.auth.token,
     userId: state.auth.userId,
@@ -68,6 +68,7 @@ export const useAuth = () => {
     isAppReady, // bool
     isAuthenticated, // bool
     userLogin, // string
-    accessLevel // number
+    accessLevel, // number
+    userPhoto // string
   } as const
 }

@@ -9,10 +9,7 @@ export const useLang = () => {
   const history = useHistory()
 
   const createLang = useCallback((language: string) => {
-    console.log(language);
-    
     if (!language) {
-      console.log('useCallback');
       setLang('RU')
       localStorage.setItem('lang', lang)
     } else {

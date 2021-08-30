@@ -12,7 +12,7 @@ export const ContainerTheme = {
   },
   variants: {
     modal: {
-      maxW: '500px'
+      maxW: '700px'
     }
   },
 }
