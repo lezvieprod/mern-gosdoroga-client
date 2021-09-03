@@ -4,6 +4,8 @@ import { Sidebar } from '../components/Sidebar/Sidebar';
 import { Navbar } from '../components/Navbar/Navbar';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { useAsyncApi } from '../../hooks/query.hook';
+import { useGetAllUsersQuery } from '../../redux/api/api';
 
 interface IAdminLayoutProps {
   children: React.ReactNode;
@@ -13,6 +15,8 @@ export const AdminLayout: React.FC<IAdminLayoutProps> = ({ children }) => {
 
   const sidebar = useDisclosure();
   const { isFetching } = useSelector((state: RootState) => state.admin)
+
+
 
   return (
     <Box as="section" bg={useColorModeValue("#fff", "gray.700")} minH="100vh">

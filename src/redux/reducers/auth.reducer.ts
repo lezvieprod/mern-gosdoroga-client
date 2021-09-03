@@ -48,6 +48,7 @@ export const getUserByLoginThunk = createAsyncThunk<any, string, { rejectValue: 
   }
 )
 
+
 interface ICurrentUser {
   token: string,
   userId: string,
@@ -95,52 +96,20 @@ const auth = createSlice({
     },
   },
   extraReducers: (builder) => {
-
-    /* 
-      *=== Регистрация ===*
-    */
-    builder.addCase(sendRegistrationDataThunk.pending, (state) => {
-      state.isFetching = true
-      state.isFetched = false
-    })
+    for (const thunk of [sendRegistrationDataThunk, sendLoginDataThunk, getUserByLoginThunk]) {
+      builder.addCase(thunk.pending, (state) => { state.isFetching = true; state.isFetched = false })
+      builder.addCase(thunk.rejected, (state, action) => {
+        if (action.payload) state.rejectData = { title: action.payload.title, message: action.payload.message }
+        state.isReject = true
+        state.isFetching = false
+        state.isFetched = false
+      })
+    }
     builder.addCase(sendRegistrationDataThunk.fulfilled, (state) => {
-      state.isReject = false
-      state.isFetching = false
-      state.isFetched = true
-    })
-    builder.addCase(sendRegistrationDataThunk.rejected, (state, action) => {
-      if (action.payload) state.rejectData = { title: action.payload.title, message: action.payload.message }
-      state.isReject = true
-      state.isFetching = false
-      state.isFetched = false
-    })
-
-    /* 
-      *=== Авторизация ===*
-    */
-    builder.addCase(sendLoginDataThunk.pending, (state) => {
-      state.isFetching = true
-      state.isFetched = false
+      state.isReject = false; state.isFetching = false; state.isFetched = true
     })
     builder.addCase(sendLoginDataThunk.fulfilled, (state) => {
-      state.isReject = false
-      state.isFetching = false
-      state.isFetched = true
-    })
-    builder.addCase(sendLoginDataThunk.rejected, (state, action) => {
-      if (action.payload) state.rejectData = { title: action.payload.title, message: action.payload.message }
-      state.isReject = true
-      state.isFetching = false
-      state.isFetched = false
-    })
-
-    /* 
-      *=== Получение пользователя по логину===* 
-      = возможно необходимо переместить в другой reducer
-    */
-    builder.addCase(getUserByLoginThunk.pending, (state) => {
-      state.isFetching = true
-      state.isFetched = false
+      state.isReject = false; state.isFetching = false; state.isFetched = true
     })
     builder.addCase(getUserByLoginThunk.fulfilled, (state, action) => {
       state.currentUser = { ...action.payload.data, status: action.payload.status }
@@ -148,12 +117,6 @@ const auth = createSlice({
       state.isFetching = false
       state.isFetched = true
       state.isAuthenticated = true
-    })
-    builder.addCase(getUserByLoginThunk.rejected, (state, action) => {
-      if (action.payload) state.rejectData = { title: action.payload.title, message: action.payload.message }
-      state.isReject = true
-      state.isFetching = false
-      state.isFetched = false
     })
   }
 })

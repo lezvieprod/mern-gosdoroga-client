@@ -1,44 +1,35 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { Reg } from '../../components/Auth/Reg';
 import { CAlert } from '../../components/common/CAlert';
 import { useLang } from '../../hooks/lang.hook';
-import { useThunk } from '../../hooks/thunk.hook';
+import { useMutate } from '../../hooks/mutate.hook';
 import { useRedirectTimer } from '../../hooks/timer.hook';
-import { clearStateAuth, sendRegistrationDataThunk } from '../../redux/reducers/auth.reducer';
-import { RootState } from '../../redux/store';
+import { useRegistrationMutation } from '../../redux/api/api';
 
-const RegContainer = () => {
+const RegContainer: React.FC = () => {
 
-  const { isFetched, isFetching, isReject } = useSelector((state: RootState) => state.auth)
-  const dispatch = useDispatch()
-  const history = useHistory()
   const { initialTime, setInitialTime, setStartTimer } = useRedirectTimer('/auth/login')
   const { lang, renderText } = useLang()
-  const { asyncThunk } = useThunk()
+  const [isRegistered, setRegistered] = useState<boolean>(false)
+  const [registration, { isLoading }] = useRegistrationMutation()
+  const { asyncMutate } = useMutate()
 
   const onSubmitHandle = async (data: FormData) => {
     try {
-      await asyncThunk(sendRegistrationDataThunk(data))
+      await asyncMutate(registration(data))
+      setRegistered(true)
     } catch (e) { }
   }
 
   useEffect(() => {
-    if (isFetched && !isReject) {
+    if (isRegistered) {
       setInitialTime(3);
       setStartTimer(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFetched])
+  }, [isRegistered])
 
-  useEffect(() => {
-    return () => {
-      dispatch(clearStateAuth())
-    }
-  }, [history, dispatch])
-
-  if (isFetched && !isReject) {
+  if (isRegistered) {
     return <CAlert
       alertTitle={renderText(lang).AUTH.REG.ALERT_SUCCESS_REG_TITLE}
       alertDescription={renderText(lang).AUTH.REG.ALERT_SUCCESS_REG_DESC}
@@ -47,7 +38,7 @@ const RegContainer = () => {
     />
   }
 
-  return <Reg onSubmitHandle={onSubmitHandle} isFetching={isFetching} />
+  return <Reg onSubmitHandle={onSubmitHandle} isLoading={isLoading} />
 
 }
 

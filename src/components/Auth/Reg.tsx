@@ -9,29 +9,18 @@ import { AVAILABLE_REG_IMAGE_FORMATS } from '../../utils/constants';
 
 interface IRegProps {
   onSubmitHandle(data: FormData): void,
-  isFetching: boolean,
+  isLoading: boolean,
 }
 
-export const Reg: React.FC<IRegProps> = ({ onSubmitHandle, isFetching }) => {
+export const Reg: React.FC<IRegProps> = ({ onSubmitHandle, isLoading }) => {
 
   const { register, handleSubmit, watch, getValues, formState: { errors } } = useForm<IRegSubmit>();
   const onSubmit = handleSubmit(data => {
-    // email: string,
-    // password: string,
-    // userLogin: string,
-    // userPhoto: any,
-    // password_repeat?: string | number
-
-
-    var bodyFormData = new FormData();
+    let bodyFormData = new FormData();
     bodyFormData.append('email', data.email); 
     bodyFormData.append('password', data.password); 
     bodyFormData.append('userLogin', data.userLogin); 
     bodyFormData.append('userPhoto', data.userPhoto[0]); 
-
-    
-    // bodyFormData.append('password_repeat', data.password_repeat); 
-
 
     onSubmitHandle(bodyFormData)
   })
@@ -156,7 +145,7 @@ export const Reg: React.FC<IRegProps> = ({ onSubmitHandle, isFetching }) => {
           </SimpleGrid>
         </VStack>
         <VStack spacing={2} align="stretch">
-          <Button type={'submit'} colorScheme="blue" variant="solid" isLoading={isFetching}>
+          <Button type={'submit'} colorScheme="blue" variant="solid" isLoading={isLoading}>
             Зарегистрироваться
           </Button>
           <Button to={'/auth/login'} as={Link} colorScheme="blue" variant="outline">

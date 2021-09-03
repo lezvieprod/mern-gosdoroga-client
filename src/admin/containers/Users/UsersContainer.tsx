@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { getUsersThunk } from '../../../redux/reducers/admin.reducer';
+import { useDispatch } from 'react-redux';
+import { setIsFetching } from '../../../redux/reducers/admin.reducer';
 import { Users } from '../../components/Users/Users';
+import { useGetAllUsersQuery } from '../../../redux/api/api';
+import { useAsyncApi } from '../../../hooks/query.hook';
 import { useAuth } from '../../../hooks/auth.hook';
-import { useThunk } from '../../../hooks/thunk.hook';
-import { RootState } from '../../../redux/store';
 
 const UsersContainer: React.FC = () => {
-  const { currentData } = useSelector((state: RootState) => state.admin)
+  
+  const dispatch = useDispatch()
   const { token } = useAuth()
-  const { asyncThunk } = useThunk()
+  const { data, isLoading } = useAsyncApi<string>(useGetAllUsersQuery, token)
 
   useEffect(() => {
-    asyncThunk(getUsersThunk(token))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    dispatch(setIsFetching(isLoading))
+  }, [dispatch, isLoading])
 
-  return <Users currentData={currentData} />
+  return <Users currentData={data} />
 }
 
 export default UsersContainer;

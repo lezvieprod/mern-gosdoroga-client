@@ -21,7 +21,7 @@ export const Users: React.FC<IUsersProps> = ({ currentData }) => {
         </Tr>
       </Thead>
       <Tbody>
-        {currentData.map(user => <UserItem key={user._id} user={user} />)}
+        {currentData?.map(user => <UserItem key={user._id} user={user} />)}
       </Tbody>
     </Table>
   );

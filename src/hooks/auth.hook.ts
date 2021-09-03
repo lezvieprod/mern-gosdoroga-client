@@ -2,10 +2,8 @@ import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { setAppIsReady } from '../redux/reducers/app.reducer'
-import { setCurrentUser } from '../redux/reducers/auth.reducer'
-import { getUserByLoginThunk } from '../redux/reducers/auth.reducer'
+import { getUserByLoginThunk, setCurrentUser } from '../redux/reducers/auth.reducer'
 import { RootState } from '../redux/store'
-
 
 /*
  *=== СХЕМА РАБОТЫ ХУКА ===* 

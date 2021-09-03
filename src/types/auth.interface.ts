@@ -9,3 +9,8 @@ export interface IRegSubmit {
   userPhoto: any,
   password_repeat?: string | number
 }
+export interface ILoginResponse {
+  token: string,
+  userLogin: string,
+  _id: string
+}

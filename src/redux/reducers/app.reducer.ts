@@ -1,15 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { IRequestError } from "../../types/error.interface"
+import { ISystemState } from "../../types/state.interface"
 
-interface IState {
+interface IState extends ISystemState {
+  currentData: any[]
   isAppReady: boolean,
-  isFetching: boolean,
-  isFetched: boolean,
-  isReject: boolean,
-  rejectData: IRequestError,
 }
 
 const initialState = {
+  currentData: {},
   isAppReady: false,
   /* == SYSTEM == */
   isFetching: false,
@@ -34,7 +32,8 @@ const app = createSlice({
     setAppIsReady(state, action: PayloadAction<boolean>) {
       state.isAppReady = action.payload
     }
-  }
+  },
+  
 })
 
 export default app.reducer

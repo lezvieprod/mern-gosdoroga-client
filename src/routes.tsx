@@ -8,6 +8,7 @@ import { MainLayout } from './layouts/Main.layout';
 
 import { PageUndefined } from './components/common/PageUndefined';
 import PostsContainer from './containers/Posts/PostsContainer';
+import { ProfileContainer } from './containers/Profile/ProfileContainer';
 
 const LoginContainer = lazy(() => import('./containers/Auth/LoginContainer'));
 const RegContainer = lazy(() => import('./containers/Auth/RegContainer'));
@@ -51,9 +52,9 @@ export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel })
           <PostsContainer />
         </MainLayout>
       </Route>
-      <Route path={'/posts'}>
+      <Route path={'/profile'}>
         <MainLayout>
-          posts
+          <ProfileContainer />
         </MainLayout>
       </Route>
       <AdminRoute exact path={'/admin'} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>

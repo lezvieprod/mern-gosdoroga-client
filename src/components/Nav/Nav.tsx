@@ -31,8 +31,8 @@ export const Nav: React.FC = () => {
                     {renderText(lang).NAV.SIGN_IN}
                   </NavButton>
                   : <Menu placement={'bottom-end'}>
-                    <MenuButton
-                      as={Box}
+                    <NavButton
+                      as={MenuButton}
                       sx={{
                         "span": {
                           display: "flex",
@@ -41,9 +41,9 @@ export const Nav: React.FC = () => {
                       }}
                       cursor={'pointer'} px={'0.5rem'} d={'flex'} h={'100%'} alignItems={'center'}
                     >
-                     <Image src={userPhoto!} boxSize={8} objectFit={'cover'} alt={''} borderRadius={'50px'} mr={2}/>  
+                     {userPhoto && <Image src={userPhoto} boxSize={8} objectFit={'cover'} alt={''} borderRadius={'50px'} mr={2}/>   }
                      {userLogin} <Icon as={VscChevronDown} ml={2} />
-                    </MenuButton>
+                    </NavButton>
                     <MenuList>
                       {
                         accessLevel === 5 &&
@@ -55,7 +55,7 @@ export const Nav: React.FC = () => {
                           <MenuDivider />
                         </>
                       }
-                      <MenuItem disabled>Профиль</MenuItem>
+                      <MenuItem as={Link} to={'/profile/' + userLogin}>Профиль</MenuItem>
                       <MenuItem onClick={logout}>Выйти из аккаунта</MenuItem>
                     </MenuList>
                   </Menu>

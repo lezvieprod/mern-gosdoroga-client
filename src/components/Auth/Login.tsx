@@ -7,10 +7,10 @@ import { EmailValidateParams, PasswordValidateParams, renderFieldError } from '.
 
 interface ILoginProps {
   onSubmitHandle(data: ILoginSubmit): void,
-  isFetching: boolean,
+  isLoading: boolean,
 }
 
-export const Login: React.FC<ILoginProps> = ({ onSubmitHandle, isFetching }) => {
+export const Login: React.FC<ILoginProps> = ({ onSubmitHandle, isLoading }) => {
 
   const { register, handleSubmit, formState: { errors } } = useForm<ILoginSubmit>();
   const onSubmit = handleSubmit(data => onSubmitHandle(data))
@@ -38,7 +38,7 @@ export const Login: React.FC<ILoginProps> = ({ onSubmitHandle, isFetching }) => 
           </FormControl>
         </VStack>
         <HStack spacing={2} align="stretch" alignItems={'center'} justifyContent={'space-between'}>
-          <Button type={'submit'} colorScheme="blue" px={12} variant="solid" isLoading={isFetching}>
+          <Button type={'submit'} colorScheme="blue" px={12} variant="solid" isLoading={isLoading}>
             Войти
           </Button>
           <Box as={Link} to={'/auth/registration'} borderBottom={'1px solid'} borderColor={'blue.400'}>

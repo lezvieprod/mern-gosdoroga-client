@@ -49,19 +49,6 @@ export const usersAPI = {
         })
     )
   },
-  getUsers(token) {
-    return (
-      instance
-        .get(`api/users`, {
-          headers: {
-            Authorization: 'Bearer ' + token
-          }
-        })
-        .then(response => ({ data: response.data, status: response.status }))
-        .catch(error => {
-          return Promise.reject({ data: error.response.data, status: error.response.status });
-        })
-    )
-  }
+  
 
 }
