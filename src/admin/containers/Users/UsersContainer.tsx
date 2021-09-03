@@ -5,18 +5,20 @@ import { Users } from '../../components/Users/Users';
 import { useGetAllUsersQuery } from '../../../redux/api/api';
 import { useAsyncApi } from '../../../hooks/query.hook';
 import { useAuth } from '../../../hooks/auth.hook';
+import { IUser } from '../../../models/user.interface';
+import { IRequestError } from '../../../types/error.interface';
 
 const UsersContainer: React.FC = () => {
   
   const dispatch = useDispatch()
   const { token } = useAuth()
-  const { data, isLoading } = useAsyncApi<string>(useGetAllUsersQuery, token)
+  const { data, isLoading } = useAsyncApi<IUser[], string>(useGetAllUsersQuery, token)
 
   useEffect(() => {
     dispatch(setIsFetching(isLoading))
   }, [dispatch, isLoading])
 
-  return <Users currentData={data} />
+  return <Users currentData={data!} />
 }
 
 export default UsersContainer;

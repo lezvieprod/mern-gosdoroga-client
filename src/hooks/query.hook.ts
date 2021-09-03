@@ -1,6 +1,24 @@
 import { useToast } from '@chakra-ui/react';
 import { useEffect } from 'react'
+import { IRequestError } from '../types/error.interface';
 
+type UseQueryResult<T, P> = {
+  originalArgs?: unknown
+  data?: T
+  error?: {
+    data: P
+  }
+  requestId?: string
+  endpointName?: string
+  startedTimeStamp?: number
+  fulfilledTimeStamp?: number
+  isUninitialized: boolean
+  isLoading: boolean
+  isFetching: boolean
+  isSuccess: boolean
+  isError: boolean
+  refetch: () => void
+}
 
 type UseQueryOptions = {
   pollingInterval?: number
@@ -11,12 +29,12 @@ type UseQueryOptions = {
   selectFromResult?: (result: any /* UseQueryStateDefaultResult */) => any
 }
 
-export const useAsyncApi = <T>(hook: Function, query?: T, params?: UseQueryOptions) => {
+export const useAsyncApi = <T, R>(hook: Function, query?: R, params?: UseQueryOptions) => {
 
   const toast = useToast()
   const toastId: string = 'apiError'
 
-  const { data, error, isLoading, isFetching, refetch } = hook(query)
+  const { data, error, isLoading, isFetching, refetch }: UseQueryResult<T, IRequestError> = hook(query, params)
 
   useEffect(() => {
     if (error && !toast.isActive(toastId)) {
@@ -28,6 +46,7 @@ export const useAsyncApi = <T>(hook: Function, query?: T, params?: UseQueryOptio
         duration: 5000,
         isClosable: true
       })
+
     }
   }, [toast, error])
 

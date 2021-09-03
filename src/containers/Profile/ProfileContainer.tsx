@@ -1,18 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useParams } from 'react-router';
+import { PageUndefined } from '../../components/common/PageUndefined';
+import { Preloader } from '../../components/common/Preloader';
 import { Profile } from '../../components/Profile/Profile';
-import { useAuth } from '../../hooks/auth.hook';
-import { useThunk } from '../../hooks/thunk.hook';
-
+import { useAsyncApi } from '../../hooks/query.hook';
+import { IUser } from '../../models/user.interface';
+import { useGetUserByLoginQuery } from '../../redux/api/api';
 
 export const ProfileContainer: React.FC = () => {
-  const { token } = useAuth()
-  const { asyncThunk } = useThunk()
 
-  useEffect(() => {
-    // asyncThunk(getUsersThunk(token))
-  }, [])
+  const { userLogin } = useParams<Record<string, string>>()
+  const { data, isLoading, isFetching } = useAsyncApi<IUser, string>(useGetUserByLoginQuery, userLogin)
 
-  return <Profile />;
+
+  if (isLoading || isFetching) return <Preloader forInit />
+  if (data) return <Profile data={data} />
+
+  return <PageUndefined /> // можно заменить на алерт с ошибкой
 }
 
 

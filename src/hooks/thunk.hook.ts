@@ -13,7 +13,7 @@ export const useThunk = () => {
       return await dispatch(callback).unwrap()
     } catch (e) {
       if (isApiError(e)) {
-        toast({ title: e.title, description: e.message, status: "error", duration: 5000, isClosable: true })
+        // toast({ title: e.title, description: e.message, status: "error", duration: 5000, isClosable: true })
       } else {
         toast({
           title: 'Неопознанная ошибка',

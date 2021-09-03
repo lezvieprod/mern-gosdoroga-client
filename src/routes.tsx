@@ -52,7 +52,7 @@ export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel })
           <PostsContainer />
         </MainLayout>
       </Route>
-      <Route path={'/profile'}>
+      <Route path={'/profile/:userLogin'}>
         <MainLayout>
           <ProfileContainer />
         </MainLayout>
@@ -86,7 +86,7 @@ const AdminRoute: React.FC<IAdminRoute> = ({ children, isAuthenticated, accessLe
   return (
     <Route
       {...rest}
-      render={() => isAuthenticated && accessLevel >= 3 ? children : <PageUndefined />}
+      render={() => isAuthenticated && accessLevel! >= 3 ? children : <PageUndefined />}
     />
   );
 }

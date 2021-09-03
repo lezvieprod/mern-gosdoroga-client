@@ -8,5 +8,5 @@ export const App: React.FC = () => {
   
   if (!isAppReady) return <Preloader forInit />
   
-  return <Routes isAuthenticated={isAuthenticated} accessLevel={accessLevel} />
+  return <Routes isAuthenticated={isAuthenticated} accessLevel={accessLevel!} />
 }

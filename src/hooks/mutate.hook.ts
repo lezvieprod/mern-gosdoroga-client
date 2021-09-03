@@ -11,6 +11,8 @@ export const useMutate = () => {
     try {
       return await callback.unwrap()
     } catch ({ data }) {
+      console.log(data);
+      
       if (isApiError(data)) {
         toast({ title: data.title, description: data.message, status: "error", duration: 5000, isClosable: true })
         return Promise.reject<IRequestError>({ data })
