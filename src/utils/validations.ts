@@ -1,5 +1,7 @@
 import {
+  AVAILABLE_POST_IMAGE_FORMATS,
   AVAILABLE_REG_IMAGE_FORMATS,
+  MAX_POST_IMAGE_SIZE,
   MAX_REG_IMAGE_SIZE,
   MAX_REG_IMAGE_SIZE_PUBLIC
 } from "./constants"
@@ -28,7 +30,30 @@ export const UserPhotoValidateParams = {
     isWrongFormats: (files: FileList) => AVAILABLE_REG_IMAGE_FORMATS.includes(files[0]?.type) || !files.length,
     lessThan10MB: (files: FileList) => files[0]?.size < MAX_REG_IMAGE_SIZE || !files[0]?.size,
   }
-}
+} as const
+
+
+export const PostTitleValidateParams = {
+  required: true,
+  minLength: 5,
+  maxLength: 200
+} as const
+
+export const PostDescriptionValidateParams = {
+  required: true,
+  minLength: 5,
+  maxLength: 2000
+} as const
+
+export const PostImageBeforeValidateParams = {
+  required: true,
+  validate: {
+    isWrongFormats: (files: FileList) => AVAILABLE_POST_IMAGE_FORMATS.includes(files[0]?.type) || !files.length,
+    lessThan10MB: (files: FileList) => files[0]?.size < MAX_POST_IMAGE_SIZE || !files[0]?.size,
+  }
+} as const
+
+
 
 export const renderFieldError = (fieldType: string, errorType: string): string => {
   switch (fieldType) {

@@ -6,7 +6,6 @@ import { useGetAllUsersQuery } from '../../../redux/api/api';
 import { useAsyncApi } from '../../../hooks/query.hook';
 import { useAuth } from '../../../hooks/auth.hook';
 import { IUser } from '../../../models/user.interface';
-import { IRequestError } from '../../../types/error.interface';
 
 const UsersContainer: React.FC = () => {
   

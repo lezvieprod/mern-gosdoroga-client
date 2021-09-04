@@ -4,9 +4,6 @@ import { Sidebar } from '../components/Sidebar/Sidebar';
 import { Navbar } from '../components/Navbar/Navbar';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { useAsyncApi } from '../../hooks/query.hook';
-import { useGetAllUsersQuery } from '../../redux/api/api';
-
 interface IAdminLayoutProps {
   children: React.ReactNode;
 }

@@ -9,6 +9,7 @@ import { MainLayout } from './layouts/Main.layout';
 import { PageUndefined } from './components/common/PageUndefined';
 import PostsContainer from './containers/Posts/PostsContainer';
 import { ProfileContainer } from './containers/Profile/ProfileContainer';
+import { CreatePostContainer } from './containers/CreatePost/CreatePostContainer';
 
 const LoginContainer = lazy(() => import('./containers/Auth/LoginContainer'));
 const RegContainer = lazy(() => import('./containers/Auth/RegContainer'));
@@ -31,25 +32,22 @@ export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel })
     <Switch>
       <Route path={'/auth/login'}>
         <AuthLayout>
-          {
-            isAuthenticated
-              ? 'Вы уже авторизованы'
-              : <LoginContainer />
-          }
+          {isAuthenticated ? 'Вы уже авторизованы' : <LoginContainer />}
         </AuthLayout>
       </Route>
       <Route path={'/auth/registration'}>
         <AuthLayout>
-          {
-            isAuthenticated
-              ? 'Вы уже авторизованы'
-              : <RegContainer />
-          }
+          {isAuthenticated ? 'Вы уже авторизованы' : <RegContainer />}
         </AuthLayout>
       </Route>
       <Route exact path={'/'}>
         <MainLayout>
           <PostsContainer />
+        </MainLayout>
+      </Route>
+      <Route exact path={'/createpost'}>
+        <MainLayout>
+          <CreatePostContainer />
         </MainLayout>
       </Route>
       <Route path={'/profile/:userLogin'}>

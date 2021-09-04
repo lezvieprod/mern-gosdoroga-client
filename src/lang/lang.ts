@@ -5,7 +5,7 @@ export const LANG = {
       LOGO: 'ГосДороги'
     },
     NAV: {
-      POSTS: 'Посты',
+      CREATE_POSTS: 'Создать пост',
       SETTINGS: 'Настройки',
       SIGN_IN: 'Войти'
     },
@@ -29,7 +29,7 @@ export const LANG = {
       LOGO: 'GosDorogi'
     },
     NAV: {
-      POSTS: 'Posts',
+      CREATE_POSTS: 'Create post',
       SETTINGS: 'Settings',
       SIGN_IN: 'Sign In'
     },

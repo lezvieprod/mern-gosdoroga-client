@@ -12,7 +12,6 @@ export const ProfileContainer: React.FC = () => {
   const { userLogin } = useParams<Record<string, string>>()
   const { data, isLoading, isFetching } = useAsyncApi<IUser, string>(useGetUserByLoginQuery, userLogin)
 
-
   if (isLoading || isFetching) return <Preloader forInit />
   if (data) return <Profile data={data} />
 

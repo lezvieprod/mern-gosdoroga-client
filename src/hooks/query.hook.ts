@@ -33,7 +33,6 @@ export const useAsyncApi = <T, R>(hook: Function, query?: R, params?: UseQueryOp
 
   const toast = useToast()
   const toastId: string = 'apiError'
-
   const { data, error, isLoading, isFetching, refetch }: UseQueryResult<T, IRequestError> = hook(query, params)
 
   useEffect(() => {
@@ -46,7 +45,6 @@ export const useAsyncApi = <T, R>(hook: Function, query?: R, params?: UseQueryOp
         duration: 5000,
         isClosable: true
       })
-
     }
   }, [toast, error])
 

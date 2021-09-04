@@ -22,8 +22,8 @@ export const Nav: React.FC = () => {
           </Heading>
           <Box d={'flex'}>
             <HStack spacing="14px">
-              <NavButton as={Link} to={'/posts'} >
-                {renderText(lang).NAV.POSTS}
+              <NavButton as={Link} to={'/createpost'} >
+                {renderText(lang).NAV.CREATE_POSTS}
               </NavButton>
               {
                 !isAuthenticated
