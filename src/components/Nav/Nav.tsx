@@ -12,7 +12,7 @@ export const Nav: React.FC = () => {
   const { lang, renderText } = useLang()
 
   return (
-    <Box h={'70px'} bg={useColorModeValue("#FCFCFC", "gray.900")} boxShadow="sm">
+    <Box maxH={'70px'} h={'100%'} bg={useColorModeValue("#FCFCFC", "gray.900")} boxShadow="sm">
       <Container h={'100%'}>
         <Box d={'flex'} justifyContent={'space-between'} h={'100%'}>
           <Heading as="h2" size="md">

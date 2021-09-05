@@ -28,7 +28,6 @@ export const UserItem: React.FC<IUserItemProps> = ({ user }) => {
     >
       <Td>{user.userLogin}</Td>
       <Td>{user.email}</Td>
-      <Td isNumeric>{user.posts.length}</Td>
       <Td isNumeric>{user.verified}</Td>
       <Td isNumeric>
         {user.accessLevel}

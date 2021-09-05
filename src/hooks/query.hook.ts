@@ -29,7 +29,7 @@ type UseQueryOptions = {
   selectFromResult?: (result: any /* UseQueryStateDefaultResult */) => any
 }
 
-export const useAsyncApi = <T, R>(hook: Function, query?: R, params?: UseQueryOptions) => {
+export const useAsyncApi = <T, R = string>(hook: Function, query?: R, params?: UseQueryOptions) => {
 
   const toast = useToast()
   const toastId: string = 'apiError'

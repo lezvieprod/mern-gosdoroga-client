@@ -5,7 +5,6 @@ export interface IUser {
   readonly token?: string,
   accessLevel: number,
   verified: number,
-  posts: IPost[],
   email: string,
   password?: string,
   userLogin: string,

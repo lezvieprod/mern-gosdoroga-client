@@ -14,7 +14,6 @@ export const Users: React.FC<IUsersProps> = ({ currentData }) => {
         <Tr>
           <Th>Логин</Th>
           <Th>Email</Th>
-          <Th isNumeric>Посты</Th>
           <Th isNumeric>Подтвержденный</Th>
           <Th isNumeric>Уровень доступа</Th>
           <Th>Действия</Th>

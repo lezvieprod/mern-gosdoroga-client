@@ -1,7 +1,13 @@
 import { IUser } from "./user.interface";
 
+interface IPostAuthor {
+  readonly _id: string,
+  userLogin: string,
+  accessLevel: number
+}
+
 export interface IPost {
-  readonly id: number,
+  readonly _id: string,
   title: string,
   description: string,
   owner: IUser,
@@ -10,5 +16,7 @@ export interface IPost {
   views: number,
   createDate: Date,
   fullUrl: string,
-  isCompleted: boolean
+  isCompleted: boolean,
+  author: IPostAuthor,
+  readonly postId: number
 }

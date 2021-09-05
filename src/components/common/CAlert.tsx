@@ -4,13 +4,14 @@ import React from 'react';
 interface ICAlertProps {
   alertTitle: string,
   alertDescription: string,
-  forAuth: boolean,
-  initialTime?: number
+  forAuth?: boolean,
+  initialTime?: number,
+  alertType?: 'info' | 'warning' | 'success' | 'error'
 }
 
-export const CAlert: React.FC<ICAlertProps> = ({ alertTitle, alertDescription, forAuth, ...props }) => {
+export const CAlert: React.FC<ICAlertProps> = ({ alertTitle, alertDescription, forAuth, alertType, ...props }) => {
   return <Alert
-    status="success"
+    status={alertType}
     variant="subtle"
     flexDirection="column"
     alignItems="center"

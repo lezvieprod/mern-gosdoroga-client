@@ -13,6 +13,10 @@ const styles = {
       minH: '100%',
       h: '100%'
     },
+    "html": {
+      overflowX: "hidden",
+      overflowY: 'scroll'
+    },
     "body, #root": {
       d: 'flex',
       flexDirection: 'column',

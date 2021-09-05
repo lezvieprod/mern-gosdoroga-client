@@ -13,7 +13,7 @@ export const NavSecondary: React.FC = () => {
     
 
   return (
-    <Box h={'45px'} bg={'#1E3685'} boxShadow="base">
+    <Box maxH={'45px'} h={'100%'} bg={'#1E3685'} boxShadow="base">
       <Container>
         <Flex alignItems="center" height={'100%'} justifyContent={'flex-end'}>
           <Menu placement={'bottom-end'}>

@@ -92,6 +92,27 @@ export const renderFieldError = (fieldType: string, errorType: string): string =
         case 'lessThan10MB': return `Максимальный размер фотографии ${MAX_REG_IMAGE_SIZE_PUBLIC}`;
         default: return 'Неизвестная ошибка';
       }
+    case 'postTitle':
+      switch (errorType) {
+        case 'required': return 'Это поле обязательно для заполнения';
+        case 'maxLength': return `Максимальное количество символов ${PostTitleValidateParams.maxLength}`;
+        case 'minLength': return `Минимальная длина поля - ${PostTitleValidateParams.minLength} символов`;
+        default: return 'Неизвестная ошибка';
+      }
+    case 'postDescription':
+      switch (errorType) {
+        case 'required': return 'Это поле обязательно для заполнения';
+        case 'maxLength': return `Максимальное количество символов ${PostDescriptionValidateParams.maxLength}`;
+        case 'minLength': return `Минимальная длина поля - ${PostDescriptionValidateParams.minLength} символов`;
+        default: return 'Неизвестная ошибка';
+      }
+    case 'postImageBefore':
+      switch (errorType) {
+        case 'required': return 'Фотография не обнаружена';
+        case 'isWrongFormats': return `Загружен запрещенный формат. Доступные форматы изображения: ${AVAILABLE_POST_IMAGE_FORMATS.join(", ")}`;
+        case 'lessThan10MB': return `Максимальный размер фотографии ${MAX_POST_IMAGE_SIZE}`;
+        default: return 'Неизвестная ошибка';
+      }
     default: return 'Неизвестный тип поля';
   }
 

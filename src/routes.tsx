@@ -9,11 +9,12 @@ import { MainLayout } from './layouts/Main.layout';
 import { PageUndefined } from './components/common/PageUndefined';
 import PostsContainer from './containers/Posts/PostsContainer';
 import { ProfileContainer } from './containers/Profile/ProfileContainer';
-import { CreatePostContainer } from './containers/CreatePost/CreatePostContainer';
 
 const LoginContainer = lazy(() => import('./containers/Auth/LoginContainer'));
 const RegContainer = lazy(() => import('./containers/Auth/RegContainer'));
 const UsersContainer = lazy(() => import('./admin/containers/Users/UsersContainer'));
+const CreatePostContainer = lazy(() => import('./containers/CreatePost/CreatePostContainer'));
+
 
 interface IRoutesProps {
   isAuthenticated: boolean,
@@ -47,7 +48,9 @@ export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel })
       </Route>
       <Route exact path={'/createpost'}>
         <MainLayout>
-          <CreatePostContainer />
+          <Container mt={10} p={0} variant={'modal'}>
+            <CreatePostContainer />
+          </Container>
         </MainLayout>
       </Route>
       <Route path={'/profile/:userLogin'}>

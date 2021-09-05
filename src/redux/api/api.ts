@@ -35,9 +35,9 @@ export const queryApi = createApi({
     }),
     /*=== Получение постов и добавление ===*/
     getAllPosts: builder.query<IPost[], string>({
-      query: (query) => `posts/${query}`,
+      query: () => `posts`,
     }),
-    createPost: builder.mutation<IPost, Itest>({
+    createPost: builder.mutation<IPost, Itest>({ // ????
       query: ({data, token}) => ({ url: 'posts/createpost', method: 'POST', body: data, headers: { 'Authorization': `Bearer ${token}` } }),
     }),
   }),
