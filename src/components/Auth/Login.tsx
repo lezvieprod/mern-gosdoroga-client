@@ -37,6 +37,7 @@ export const Login: React.FC<ILoginProps> = ({ onSubmitHandle, isLoading }) => {
             </FormErrorMessage>
           </FormControl>
         </VStack>
+        
         <HStack spacing={2} align="stretch" alignItems={'center'} justifyContent={'space-between'}>
           <Button type={'submit'} colorScheme="blue" px={12} variant="solid" isLoading={isLoading}>
             Войти

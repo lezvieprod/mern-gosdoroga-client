@@ -52,7 +52,22 @@ const PostItem: React.FC<IPostItemProps> = ({
             Статус: {isCompleted ? 'Выполнено' : 'Ожидает исполнения'}
           </Box>
           <Box>
-            Автор: {author.userLogin}
+            Автор:
+            <Box
+              as={Link}
+              to={'/profile/' + author.userLogin} 
+              ml={1} 
+              zIndex={5} 
+              pos={'relative'}
+              sx={{
+                '&:hover': {
+                  borderBottom: '1px solid',
+                  borderColor: 'blue.400'
+                }
+              }}
+              >
+              {author.userLogin}
+            </Box>
           </Box>
         </Box>
       </Flex>
@@ -64,6 +79,7 @@ const PostItem: React.FC<IPostItemProps> = ({
         bottom={0}
         w={'100%'}
         h={'100%'}
+        zIndex={1}
       />
     </Box>
   );

@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 
+
+/*
+ *=== ХУК ДЛЯ ДЛЯ СОЗДАНИЯ ТАЙМЕРА ДО РЕДИРЕКТА  ===* 
+*/
+
 export const useRedirectTimer = (path: string) => {
 
   const history = useHistory()

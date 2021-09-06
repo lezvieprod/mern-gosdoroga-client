@@ -29,6 +29,12 @@ type UseQueryOptions = {
   selectFromResult?: (result: any /* UseQueryStateDefaultResult */) => any
 }
 
+/*
+ *=== ХУК ДЛЯ USEQUERY ИЗ RTK QUERY  ===* 
+ Основная задача хука - сократить кол-во написаний вывода ошибки
+ ==========
+*/
+
 export const useAsyncApi = <T, R = string>(hook: Function, query?: R, params?: UseQueryOptions) => {
 
   const toast = useToast()

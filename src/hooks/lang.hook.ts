@@ -2,6 +2,10 @@ import { useCallback, useEffect, useState } from "react"
 import { useHistory } from "react-router-dom"
 import { LANG } from "../lang/lang"
 
+/*
+ *=== ХУК ДЛЯ СМЕНЫ ЯЗЫКА ===* 
+*/
+
 export const useLang = () => {
 
   const currentLang = localStorage.getItem('lang') || '{}'

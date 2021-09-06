@@ -5,7 +5,6 @@ import { useAuth } from '../../hooks/auth.hook';
 import { useMutate } from '../../hooks/mutate.hook';
 import { useRedirectTimer } from '../../hooks/timer.hook';
 import { useCreatePostMutation } from '../../redux/api/api';
-import { IPostCreateSubmit } from '../../types/post.interface';
 
 const CreatePostContainer: React.FC = () => {
 

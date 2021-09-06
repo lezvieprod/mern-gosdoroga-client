@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, chakra, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Icon, Input, SimpleGrid, Text, VisuallyHidden, VStack } from '@chakra-ui/react';
+import { Avatar, HStack, Box, Button, chakra, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Icon, Input, SimpleGrid, Text, VisuallyHidden, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
@@ -17,10 +17,10 @@ export const Reg: React.FC<IRegProps> = ({ onSubmitHandle, isLoading }) => {
   const { register, handleSubmit, watch, getValues, formState: { errors } } = useForm<IRegSubmit>();
   const onSubmit = handleSubmit(data => {
     let bodyFormData = new FormData();
-    bodyFormData.append('email', data.email); 
-    bodyFormData.append('password', data.password); 
-    bodyFormData.append('userLogin', data.userLogin); 
-    bodyFormData.append('userPhoto', data.userPhoto[0]); 
+    bodyFormData.append('email', data.email);
+    bodyFormData.append('password', data.password);
+    bodyFormData.append('userLogin', data.userLogin);
+    bodyFormData.append('userPhoto', data.userPhoto[0]);
 
     onSubmitHandle(bodyFormData)
   })
@@ -28,12 +28,8 @@ export const Reg: React.FC<IRegProps> = ({ onSubmitHandle, isLoading }) => {
   const [image, setImage] = useState<FileList>()
   const userPhoto: FileList | undefined = watch('userPhoto') && watch('userPhoto').length && getValues().userPhoto
 
-
   useEffect(() => {
-  
-    
     setImage(userPhoto);
-
   }, [userPhoto])
 
 
@@ -144,14 +140,14 @@ export const Reg: React.FC<IRegProps> = ({ onSubmitHandle, isLoading }) => {
             </FormControl>
           </SimpleGrid>
         </VStack>
-        <VStack spacing={2} align="stretch">
-          <Button type={'submit'} colorScheme="blue" variant="solid" isLoading={isLoading}>
-            Зарегистрироваться
+        <HStack mt={9} spacing={2} align="stretch" alignItems={'center'} justifyContent={'space-between'}>
+          <Button type={'submit'} colorScheme="blue" px={12} variant="solid" isLoading={isLoading}>
+          Зарегистрироваться
           </Button>
-          <Button to={'/auth/login'} as={Link} colorScheme="blue" variant="outline">
-            Есть аккаунт?
-          </Button>
-        </VStack>
+          <Box as={Link} to={'/auth/login'} borderBottom={'1px solid'} borderColor={'blue.400'}>
+          Есть аккаунт?
+          </Box>
+        </HStack>
       </form>
     </>
 

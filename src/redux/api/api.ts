@@ -3,12 +3,6 @@ import { IPost } from '../../models/post.interface'
 import { IUser } from '../../models/user.interface'
 import { ILoginResponse, ILoginSubmit } from '../../types/auth.interface'
 
-interface Itest {
-  data: FormData,
-  token: string
-}
-
-
 export const queryApi = createApi({
   reducerPath: 'queryApi',
   baseQuery: fetchBaseQuery({
@@ -37,8 +31,8 @@ export const queryApi = createApi({
     getAllPosts: builder.query<IPost[], string>({
       query: () => `posts`,
     }),
-    createPost: builder.mutation<IPost, Itest>({ // ????
-      query: ({data, token}) => ({ url: 'posts/createpost', method: 'POST', body: data, headers: { 'Authorization': `Bearer ${token}` } }),
+    createPost: builder.mutation<IPost, { data: FormData, token: string }>({ 
+      query: ({ data, token }) => ({ url: 'posts/createpost', method: 'POST', body: data, headers: { 'Authorization': `Bearer ${token}` } }),
     }),
   }),
 })

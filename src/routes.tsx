@@ -27,6 +27,13 @@ interface IAdminRoute {
   accessLevel: number,
   [rest: string]: any
 }
+interface IAuthRoute {
+  children: React.ReactNode,
+  isAuthenticated: boolean,
+  [rest: string]: any
+}
+
+
 
 export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel }) => {
   return (
@@ -46,13 +53,13 @@ export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel })
           <PostsContainer />
         </MainLayout>
       </Route>
-      <Route exact path={'/createpost'}>
+      <AuthRoute exact path={'/createpost'} isAuthenticated={isAuthenticated}>
         <MainLayout>
-          <Container mt={10} p={0} variant={'modal'}>
+          <Container p={0} variant={'modal'}>
             <CreatePostContainer />
           </Container>
         </MainLayout>
-      </Route>
+      </AuthRoute>
       <Route path={'/profile/:userLogin'}>
         <MainLayout>
           <ProfileContainer />
@@ -74,20 +81,27 @@ export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel })
         </AdminLayout>
       </AdminRoute>
       <Route exact path={'*'}>
-        <Container my={12} p={0}>
-          <PageUndefined />
-        </Container>
+        <PageUndefined />
       </Route>
     </Switch>
 
   )
 }
 
+const AuthRoute: React.FC<IAuthRoute> = ({ children, isAuthenticated, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={() => isAuthenticated ? children : <PageUndefined isAccessError/>}
+    />
+  );
+}
+
 const AdminRoute: React.FC<IAdminRoute> = ({ children, isAuthenticated, accessLevel, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={() => isAuthenticated && accessLevel! >= 3 ? children : <PageUndefined />}
+      render={() => isAuthenticated && accessLevel! >= 3 ? children : <PageUndefined isAccessError/>}
     />
   );
 }

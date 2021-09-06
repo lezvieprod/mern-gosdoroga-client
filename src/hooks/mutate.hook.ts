@@ -3,6 +3,12 @@ import { useCallback } from 'react'
 import { IRequestError } from '../types/error.interface';
 import { isApiError } from '../utils/fetch';
 
+/*
+ *=== ХУК ДЛЯ USEMUTATION ИЗ RTK QUERY  ===* 
+ Основная задача хука - сократить кол-во написаний вывода ошибки
+ ==========
+*/
+
 export const useMutate = () => {
 
   const toast = useToast()
