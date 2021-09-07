@@ -7,7 +7,7 @@ import { useAsyncApi } from '../../hooks/query.hook';
 import { IUser } from '../../models/user.interface';
 import { useGetUserByLoginQuery } from '../../redux/api/api';
 
-export const ProfileContainer: React.FC = () => {
+const ProfileContainer: React.FC = () => {
 
   const { userLogin } = useParams<Record<string, string>>()
   const { data, isLoading, isFetching } = useAsyncApi<IUser, string>(useGetUserByLoginQuery, userLogin)
@@ -15,7 +15,9 @@ export const ProfileContainer: React.FC = () => {
   if (isLoading || isFetching) return <Preloader forInit />
   if (data) return <Profile data={data} />
 
-  return <PageUndefined /> // можно заменить на алерт с ошибкой
+  return <PageUndefined withLayout={false} />
 }
+
+export default ProfileContainer
 
 

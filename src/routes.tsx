@@ -7,13 +7,15 @@ import { AuthLayout } from './layouts/Auth.layout';
 import { MainLayout } from './layouts/Main.layout';
 
 import { PageUndefined } from './components/common/PageUndefined';
-import PostsContainer from './containers/Posts/PostsContainer';
-import { ProfileContainer } from './containers/Profile/ProfileContainer';
 
 const LoginContainer = lazy(() => import('./containers/Auth/LoginContainer'));
 const RegContainer = lazy(() => import('./containers/Auth/RegContainer'));
 const UsersContainer = lazy(() => import('./admin/containers/Users/UsersContainer'));
 const CreatePostContainer = lazy(() => import('./containers/CreatePost/CreatePostContainer'));
+const PostPageContainer = lazy(() => import('./containers/PostPage/PostPageContainer'))
+const ProfileContainer = lazy(() => import('./containers/Profile/ProfileContainer'))
+const PostsContainer = lazy(() => import('./containers/Posts/PostsContainer'))
+
 
 
 interface IRoutesProps {
@@ -38,21 +40,31 @@ interface IAuthRoute {
 export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel }) => {
   return (
     <Switch>
+
       <Route path={'/auth/login'}>
         <AuthLayout>
           {isAuthenticated ? 'Вы уже авторизованы' : <LoginContainer />}
         </AuthLayout>
       </Route>
+
       <Route path={'/auth/registration'}>
         <AuthLayout>
           {isAuthenticated ? 'Вы уже авторизованы' : <RegContainer />}
         </AuthLayout>
       </Route>
+
       <Route exact path={'/'}>
         <MainLayout>
           <PostsContainer />
         </MainLayout>
       </Route>
+
+      <Route exact path={'/posts/:postId-:slugTitle'}>
+        <MainLayout>
+          <PostPageContainer />
+        </MainLayout>
+      </Route>
+
       <AuthRoute exact path={'/createpost'} isAuthenticated={isAuthenticated}>
         <MainLayout>
           <Container p={0} variant={'modal'}>
@@ -60,29 +72,35 @@ export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel })
           </Container>
         </MainLayout>
       </AuthRoute>
+
       <Route path={'/profile/:userLogin'}>
         <MainLayout>
           <ProfileContainer />
         </MainLayout>
       </Route>
+
       <AdminRoute exact path={'/admin'} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
         <AdminLayout>
           Главная страница админ панели
         </AdminLayout>
       </AdminRoute>
+
       <AdminRoute exact path={'/admin/users'} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
         <AdminLayout>
           <UsersContainer />
         </AdminLayout>
       </AdminRoute>
+
       <AdminRoute path={'/admin/posts'} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
         <AdminLayout>
           posts
         </AdminLayout>
       </AdminRoute>
+
       <Route exact path={'*'}>
-        <PageUndefined />
+        <PageUndefined withLayout={true} />
       </Route>
+      
     </Switch>
 
   )
@@ -92,7 +110,7 @@ const AuthRoute: React.FC<IAuthRoute> = ({ children, isAuthenticated, ...rest })
   return (
     <Route
       {...rest}
-      render={() => isAuthenticated ? children : <PageUndefined isAccessError/>}
+      render={() => isAuthenticated ? children : <PageUndefined isAccessError withLayout={true} />}
     />
   );
 }
@@ -101,7 +119,7 @@ const AdminRoute: React.FC<IAdminRoute> = ({ children, isAuthenticated, accessLe
   return (
     <Route
       {...rest}
-      render={() => isAuthenticated && accessLevel! >= 3 ? children : <PageUndefined isAccessError/>}
+      render={() => isAuthenticated && accessLevel! >= 3 ? children : <PageUndefined isAccessError withLayout={true} />}
     />
   );
 }

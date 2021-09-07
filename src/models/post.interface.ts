@@ -1,6 +1,6 @@
 import { IUser } from "./user.interface";
 
-interface IPostAuthor {
+export interface IPostAuthor {
   readonly _id: string,
   userLogin: string,
   accessLevel: number

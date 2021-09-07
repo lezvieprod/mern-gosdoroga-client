@@ -9,14 +9,15 @@ interface IPostItemProps extends IPost {
 
 
 const PostItem: React.FC<IPostItemProps> = ({
-  createDate,
-  description,
+  postId,
   fullUrl,
   imageBefore,
   isCompleted,
   title,
   author
 }) => {
+
+  const locationToPost = { pathname: fullUrl, state: { postId } }
 
 
   return (
@@ -25,7 +26,7 @@ const PostItem: React.FC<IPostItemProps> = ({
         <Box w={'100%'} mb={3}>
           <Image
             w={'100%'}
-            h={'150px'}
+            h={'180px'}
             borderRadius={'md'}
             objectFit={'cover'}
             src={imageBefore}
@@ -55,23 +56,18 @@ const PostItem: React.FC<IPostItemProps> = ({
             Автор:
             <Box
               as={Link}
-              to={'/profile/' + author.userLogin} 
-              ml={1} 
-              zIndex={5} 
+              to={'/profile/' + author.userLogin}
+              ml={1}
+              zIndex={5}
               pos={'relative'}
-              sx={{
-                '&:hover': {
-                  borderBottom: '1px solid',
-                  borderColor: 'blue.400'
-                }
-              }}
-              >
+              sx={{ '&:hover': { borderBottom: '1px solid', borderColor: 'blue.400' } }}
+            >
               {author.userLogin}
             </Box>
           </Box>
         </Box>
       </Flex>
-      <Box as={Link} to={fullUrl}
+      <Box as={Link} to={locationToPost}
         pos={'absolute'}
         top={0}
         left={0}
@@ -79,7 +75,7 @@ const PostItem: React.FC<IPostItemProps> = ({
         bottom={0}
         w={'100%'}
         h={'100%'}
-        zIndex={1}
+        zIndex={0}
       />
     </Box>
   );

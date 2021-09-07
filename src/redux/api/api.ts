@@ -27,11 +27,17 @@ export const queryApi = createApi({
     sendLogin: builder.mutation<ILoginResponse, ILoginSubmit>({
       query: (data) => ({ url: 'auth/login', method: 'POST', body: data }),
     }),
+    getCurrentUser: builder.mutation<IUser, { userLogin: string, token: string }>({
+      query: ({ userLogin, token }) => ({ url: `users/currentuser/${userLogin}`, headers: { 'Authorization': `Bearer ${token}` } }),
+    }),
     /*=== Получение постов и добавление ===*/
     getAllPosts: builder.query<IPost[], string>({
-      query: () => `posts`,
+      query: (userLogin) => userLogin ? `posts/${userLogin}` : `posts`,
     }),
-    createPost: builder.mutation<IPost, { data: FormData, token: string }>({ 
+    getPost: builder.query<IPost, {postId: string, slugTitle: string}>({
+      query: ({postId, slugTitle}) => `posts/${postId}/${slugTitle}`,
+    }),
+    createPost: builder.mutation<IPost, { data: FormData, token: string }>({
       query: ({ data, token }) => ({ url: 'posts/createpost', method: 'POST', body: data, headers: { 'Authorization': `Bearer ${token}` } }),
     }),
   }),
@@ -46,7 +52,9 @@ export const {
   /*=== Авторизация ===*/
   useRegistrationMutation,
   useSendLoginMutation,
+  useGetCurrentUserMutation,
   /*=== Получение постов ===*/
   useGetAllPostsQuery,
-  useCreatePostMutation
+  useCreatePostMutation,
+  useGetPostQuery
 } = queryApi

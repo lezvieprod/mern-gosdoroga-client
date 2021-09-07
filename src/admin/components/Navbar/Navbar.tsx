@@ -1,11 +1,16 @@
-import { Box, Flex, Icon, IconButton, Input, InputGroup, InputLeftElement, Menu, MenuButton, MenuItem, MenuList, Switch, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { Box, UseDisclosureProps, Flex, Icon, IconButton, Input, InputGroup, InputLeftElement, Menu, MenuButton, MenuItem, MenuList, Switch, useColorMode, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
 import { FiMenu, FiSearch } from 'react-icons/fi';
 import { VscChevronDown, VscWindow } from 'react-icons/vsc';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../hooks/auth.hook';
 
-export const Navbar = ({ sidebar }) => {
+interface INavbarProps {
+  sidebar: UseDisclosureProps
+}
+
+
+export const Navbar: React.FC<INavbarProps> = ({ sidebar }) => {
 
   const { colorMode, toggleColorMode } = useColorMode()
   const { logout, userLogin } = useAuth()
@@ -37,7 +42,6 @@ export const Navbar = ({ sidebar }) => {
 
         <Input placeholder="Search for articles..." />
       </InputGroup>
-
       <Flex align="center">
         <Flex align="center" as={Link} to={'/'} mr={6}>
           <Icon as={VscWindow} boxSize="5" />

@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { useGetUserByLoginLazyMutation } from '../redux/api/api'
+import { useGetCurrentUserMutation } from '../redux/api/api'
 import { setAppIsReady } from '../redux/reducers/app.reducer'
 import { setCurrentUser } from '../redux/reducers/auth.reducer'
 import { RootState } from '../redux/store'
@@ -38,21 +38,24 @@ export const useAuth = () => {
     isAppReady: state.app.isAppReady
   }))
 
-  const [getUserByLoginLazy] = useGetUserByLoginLazyMutation()
+
+  const [getCurrentUser] = useGetCurrentUserMutation()
   const { asyncMutate } = useMutate()
   const dispatch = useDispatch()
   const history = useHistory()
 
   const login = useCallback(async (token: string, userLogin: string, id: string) => {
     try {
-      const response = await asyncMutate(getUserByLoginLazy(userLogin))
+      const response = await asyncMutate(getCurrentUser({ userLogin, token }))
       dispatch(setCurrentUser({ currentUser: { ...response, token } }))
 
       localStorage.setItem(storageName, JSON.stringify({
         token, userLogin, id
       }))
-    } catch (e) { }
-  }, [dispatch, asyncMutate, getUserByLoginLazy])
+    } catch (e) {
+      localStorage.removeItem(storageName)
+    }
+  }, [dispatch, asyncMutate, getCurrentUser])
 
   const logout = useCallback(() => {
     dispatch(setCurrentUser({ currentUser: {} }))
@@ -61,14 +64,17 @@ export const useAuth = () => {
   }, [dispatch, history])
 
   useEffect(() => {
-    const loginOnAppInit = async () => {
-      const data = JSON.parse(localStorage.getItem(storageName) || '{}')
-      if (data && data.token && !isAuthenticated) {
-        await login(data.token, data.userLogin, data.id)
+    if (!isAppReady) {
+      const loginOnAppInit = async () => {
+        const data = JSON.parse(localStorage.getItem(storageName) || '{}')
+        if (data && data.token && !isAuthenticated) {
+          await login(data.token, data.userLogin, data.id)
+        }
+        dispatch(setAppIsReady(true))
       }
-      !isAppReady && dispatch(setAppIsReady(true))
+      loginOnAppInit()
     }
-    loginOnAppInit()
+
   }, [login, dispatch, isAuthenticated, isAppReady])
 
   return {

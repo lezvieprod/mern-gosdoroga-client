@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { Box, Drawer, DrawerContent, DrawerOverlay, Progress, useColorModeValue, useDisclosure } from "@chakra-ui/react";
+import { Box, Drawer, DrawerContent, DrawerOverlay, Progress, useDisclosure } from "@chakra-ui/react";
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import { Navbar } from '../components/Navbar/Navbar';
 import { useSelector } from 'react-redux';
@@ -13,10 +13,8 @@ export const AdminLayout: React.FC<IAdminLayoutProps> = ({ children }) => {
   const sidebar = useDisclosure();
   const { isFetching } = useSelector((state: RootState) => state.admin)
 
-
-
   return (
-    <Box as="section" bg={useColorModeValue("#fff", "gray.700")} minH="100vh">
+    <Box as="section" bg={"#fff"} minH="100vh">
       <Sidebar display={{ base: "none", md: "unset" }} />
       <Drawer isOpen={sidebar.isOpen} onClose={sidebar.onClose} placement="left">
         <DrawerOverlay />

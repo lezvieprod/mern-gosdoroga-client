@@ -5,15 +5,17 @@ import Posts from '../../components/Posts/Posts';
 import { useAsyncApi } from '../../hooks/query.hook';
 import { IPost } from '../../models/post.interface';
 import { useGetAllPostsQuery } from '../../redux/api/api';
+interface IPostsContainerProps {
+  authorLogin?: string
+}
 
+const PostsContainer: React.FC<IPostsContainerProps> = ({ authorLogin }) => {
 
-const PostsContainer: React.FC = () => {
-
-  const { data, isLoading, isFetching } = useAsyncApi<IPost[]>(useGetAllPostsQuery)
+  const { data, isLoading, isFetching } = useAsyncApi<IPost[]>(useGetAllPostsQuery, authorLogin)
   if (isLoading || isFetching) return <Preloader forInit />
 
-  if (data) return  <Posts data={data} />
-  
+  if (data) return <Posts data={data} />
+
   return <PageUndefined />
 }
 

@@ -6,7 +6,7 @@ import { ContainerTheme, NavButtonTheme } from "./components.theme";
 
 
 const styles = {
-  global: (props) => ({
+  global: () => ({
     "html, body": {
       color: "gray.600",
       bgColor: '#F5F5F5',
@@ -34,10 +34,6 @@ const fonts = {
   body: "Inter, sans-serf",
 }
 
-const config = {
-  initialColorMode: "light",
-  useSystemColorMode: false
-};
 
 const components = {
   Container: ContainerTheme,
@@ -45,7 +41,7 @@ const components = {
 }
 
 const breakpoints = createBreakpoints({
-  xs: 0,
+  xs: '0',
   sm: '576px',
   md: '768px',
   lg: '992px',
@@ -54,4 +50,4 @@ const breakpoints = createBreakpoints({
 })
 
 
-export const theme = extendTheme({ styles, fonts, components, config, breakpoints })
+export const theme = extendTheme({ styles, fonts, components, breakpoints })

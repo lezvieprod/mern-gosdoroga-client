@@ -1,7 +1,14 @@
-import { Flex, Icon, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Icon } from '@chakra-ui/react';
 import React from 'react';
+import { IconType } from 'react-icons';
 
-export const SidebarItem = (props) => {
+interface ISidebarItemProps {
+  icon: IconType,
+  children: React.ReactChild,
+  [rest: string]: any
+}
+
+export const SidebarItem: React.FC<ISidebarItemProps> = (props) => {
 
   const { icon, children, ...rest } = props;
   return (
@@ -11,10 +18,10 @@ export const SidebarItem = (props) => {
       pl="4"
       py="3"
       cursor="pointer"
-      color={useColorModeValue("inherit", "gray.400")}
+      color={"inherit"}
       _hover={{
-        bg: useColorModeValue("gray.100", "gray.900"),
-        color: useColorModeValue("gray.900", "gray.200"),
+        bg: "gray.100",
+        color: "gray.900",
       }}
       role="group"
       fontWeight="semibold"

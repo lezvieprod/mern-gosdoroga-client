@@ -12,7 +12,7 @@ export const MainLayout: React.FC<IMainLayoutProps> = ({ children }) => {
     <>
       <NavContainer />
       <Suspense fallback={<Preloader forInit />}>
-        <Container my={8}>{children}</Container>
+        <Container flex={'1 0 auto'} my={8}>{children}</Container>
       </Suspense>
     </>
   );

@@ -3,9 +3,6 @@ import { IUser } from "../../models/user.interface";
 import { ISystemState } from "../../types/state.interface";
 interface ICurrentUser {
   currentUser: Partial<IUser>,
-  // token: string,
-  // userId: string,
-  // userLogin: string,
 }
 
 interface IState extends ISystemState {
@@ -42,25 +39,6 @@ const auth = createSlice({
       state.currentUser = action.payload.currentUser
       state.isAuthenticated = true
     },
-  },
-  extraReducers: (builder) => {
-    // for (const thunk of [getUserByLoginThunk]) {
-    //   builder.addCase(thunk.pending, (state) => { state.isFetching = true; state.isFetched = false })
-    //   builder.addCase(thunk.rejected, (state, action) => {
-    //     if (action.payload) state.rejectData = { title: action.payload.title, message: action.payload.message }
-    //     state.isReject = true
-    //     state.isFetching = false
-    //     state.isFetched = false
-    //   })
-    // }
-
-    // builder.addCase(getUserByLoginThunk.fulfilled, (state, action) => {
-    //   state.currentUser = { ...action.payload.data, status: action.payload.status }
-    //   state.isReject = false
-    //   state.isFetching = false
-    //   state.isFetched = true
-    //   state.isAuthenticated = true
-    // })
   }
 })
 

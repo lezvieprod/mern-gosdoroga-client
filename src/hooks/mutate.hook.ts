@@ -30,6 +30,7 @@ export const useMutate = () => {
           duration: 5000,
           isClosable: true
         })
+        return Promise.reject()
       }
     }
   }, [toast])

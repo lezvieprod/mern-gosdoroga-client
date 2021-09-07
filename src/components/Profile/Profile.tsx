@@ -5,6 +5,7 @@ import { IUser } from '../../models/user.interface';
 import { Route } from "react-router-dom";
 import { ProfileMenu } from './ProfileParts/ProfileMenu';
 import { ProfileInfo } from './ProfileParts/ProfileInfo';
+import PostsContainer from '../../containers/Posts/PostsContainer';
 interface IProfileProps {
   data: IUser
 }
@@ -15,7 +16,7 @@ export const Profile: React.FC<IProfileProps> = ({ data }) => {
 
   return (
     <Box>
-      <Box bg={'#fff'} borderRadius={'md'} boxShadow="sm">
+      <Box bg={'#fff'} borderRadius={'md'} boxShadow="sm" mb={5}>
         <Box borderRadius={'md'} w={'100%'} h={'300px'} overflow={'hidden'}>
           <Image src={userPhoto} alt={userLogin} w={'100%'}
             h={'100%'} objectFit={'cover'} filter={'blur(18px)'} transform={'scale(1.2)'} />
@@ -32,6 +33,9 @@ export const Profile: React.FC<IProfileProps> = ({ data }) => {
       </Box>
       <Route exact path={'/profile/:userLogin'}>
         <ProfileInfo regDate={regDate} verified={verified} />
+      </Route>
+      <Route exact path={'/profile/:userLogin/posts'}>
+        <PostsContainer authorLogin={userLogin} />
       </Route>
     </Box>
   );

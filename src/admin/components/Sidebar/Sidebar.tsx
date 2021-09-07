@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 import { FaClipboardCheck, FaRss } from 'react-icons/fa';
 import { HiCollection } from 'react-icons/hi';
@@ -6,7 +6,11 @@ import { MdHome } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { SidebarItem } from './SidebarItem';
 
-export const Sidebar = (props) => {
+interface ISidebarProps {
+  [props: string]: any
+}
+
+export const Sidebar: React.FC<ISidebarProps> = (props) => {
   return (
     <Box
       as="nav"
@@ -18,8 +22,8 @@ export const Sidebar = (props) => {
       pb="10"
       overflowX="hidden"
       overflowY="auto"
-      bg={useColorModeValue("#F9F9F9", "gray.800")}
-      borderColor={useColorModeValue("inherit", "gray.700")}
+      bg={'#F9F9F9'}
+      borderColor={"inherit"}
       borderRightWidth="1px"
       w="60"
       {...props}
@@ -28,7 +32,7 @@ export const Sidebar = (props) => {
         <Text
           fontSize="2xl"
           ml="2"
-          color={useColorModeValue("brand.500", "white")}
+          color={"brand.500"}
           fontWeight="semibold"
         >
           Admin Panel
@@ -51,5 +55,3 @@ export const Sidebar = (props) => {
     </Box>
   );
 }
-
-  ;
