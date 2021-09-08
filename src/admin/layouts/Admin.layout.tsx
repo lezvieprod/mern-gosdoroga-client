@@ -15,14 +15,14 @@ export const AdminLayout: React.FC<IAdminLayoutProps> = ({ children }) => {
 
   return (
     <Box as="section" bg={"#fff"} minH="100vh">
-      <Sidebar display={{ base: "none", md: "unset" }} />
+      <Sidebar display={{ base: "none", lg: "flex" }} />
       <Drawer isOpen={sidebar.isOpen} onClose={sidebar.onClose} placement="left">
         <DrawerOverlay />
         <DrawerContent>
           <Sidebar w="full" borderRight="none" />
         </DrawerContent>
       </Drawer>
-      <Box ml={{ base: 0, md: 60 }} transition=".3s ease">
+      <Box ml={{ base: 0, lg: 60 }} transition=".3s ease">
         <Navbar sidebar={sidebar} />
         <Suspense fallback={<Progress size="xs" isIndeterminate />}>
           {isFetching ? <Progress size="xs" isIndeterminate /> : <Box h={'4px'} />}

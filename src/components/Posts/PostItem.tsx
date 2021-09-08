@@ -3,22 +3,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { IPost } from '../../models/post.interface';
 
-interface IPostItemProps extends IPost {
 
-}
-
-
-const PostItem: React.FC<IPostItemProps> = ({
-  postId,
+const PostItem: React.FC<IPost> = ({
   fullUrl,
   imageBefore,
   isCompleted,
   title,
-  author
+  author,
 }) => {
-
-  const locationToPost = { pathname: fullUrl, state: { postId } }
-
 
   return (
     <Box bg={'#fff'} borderRadius={'md'} overflow={'hidden'} boxShadow={'sm'} pos={'relative'}>
@@ -67,7 +59,7 @@ const PostItem: React.FC<IPostItemProps> = ({
           </Box>
         </Box>
       </Flex>
-      <Box as={Link} to={locationToPost}
+      <Box as={Link} to={fullUrl}
         pos={'absolute'}
         top={0}
         left={0}

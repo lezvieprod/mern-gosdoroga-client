@@ -9,8 +9,9 @@ export const queryApi = createApi({
     baseUrl: '/api/'
   }),
   keepUnusedDataFor: 0,
+  tagTypes: ['Posts'],
   endpoints: (builder) => ({
-    /*=== Получение пользователей ===*/
+    /*=== Пользователи ===*/
     getUserByLogin: builder.query<IUser, string>({
       query: (query) => `users/${query}`,
     }),
@@ -30,22 +31,30 @@ export const queryApi = createApi({
     getCurrentUser: builder.mutation<IUser, { userLogin: string, token: string }>({
       query: ({ userLogin, token }) => ({ url: `users/currentuser/${userLogin}`, headers: { 'Authorization': `Bearer ${token}` } }),
     }),
-    /*=== Получение постов и добавление ===*/
+    /*=== Посты ===*/
     getAllPosts: builder.query<IPost[], string>({
       query: (userLogin) => userLogin ? `posts/${userLogin}` : `posts`,
+      providesTags: (result) =>
+        result
+          ? [...result.map(({ _id }) => ({ type: 'Posts' as const, _id })), { type: 'Posts', id: 'LIST' }]
+          : [{ type: 'Posts', id: 'LIST' }],
     }),
-    getPost: builder.query<IPost, {postId: string, slugTitle: string}>({
-      query: ({postId, slugTitle}) => `posts/${postId}/${slugTitle}`,
+    getPost: builder.query<IPost, { postId: string, slugTitle: string }>({
+      query: ({ postId, slugTitle }) => `posts/${postId}/${slugTitle}`,
     }),
     createPost: builder.mutation<IPost, { data: FormData, token: string }>({
       query: ({ data, token }) => ({ url: 'posts/createpost', method: 'POST', body: data, headers: { 'Authorization': `Bearer ${token}` } }),
+    }),
+    deletePost: builder.mutation<any, { postId: string, token: string }>({
+      query: ({ postId, token }) => ({ url: `posts/delete/${postId}`, method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } }),
+      invalidatesTags: ['Posts'],
     }),
   }),
 })
 
 
 export const {
-  /*=== Получение пользователей ===*/
+  /*=== Пользователи ===*/
   useGetUserByLoginQuery,
   useGetUserByLoginLazyMutation,
   useGetAllUsersQuery,
@@ -53,8 +62,9 @@ export const {
   useRegistrationMutation,
   useSendLoginMutation,
   useGetCurrentUserMutation,
-  /*=== Получение постов ===*/
+  /*=== Посты ===*/
   useGetAllPostsQuery,
   useCreatePostMutation,
-  useGetPostQuery
+  useGetPostQuery,
+  useDeletePostMutation
 } = queryApi

@@ -91,16 +91,16 @@ export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel })
         </AdminLayout>
       </AdminRoute>
 
-      <AdminRoute path={'/admin/posts'} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
+      <AdminRoute exact path={'/admin/posts'} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
         <AdminLayout>
-          posts
+          <PostsContainer forAdmin={true} />
         </AdminLayout>
       </AdminRoute>
 
       <Route exact path={'*'}>
         <PageUndefined withLayout={true} />
       </Route>
-      
+
     </Switch>
 
   )

@@ -20,13 +20,14 @@ export const SidebarItem: React.FC<ISidebarItemProps> = (props) => {
       cursor="pointer"
       color={"inherit"}
       _hover={{
-        bg: "gray.100",
-        color: "gray.900",
+        bg: "#1F232C",
+        borderRight: '5px solid', 
+        borderColor: '#4f576e',
       }}
       role="group"
       fontWeight="semibold"
       transition=".15s ease"
-      borderRadius={'md'}
+      activeStyle={{ borderRight: '5px solid', borderColor: '#3182ce', background: '#12151A' }}
       {...rest}
     >
       {icon && (

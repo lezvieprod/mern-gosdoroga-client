@@ -1,4 +1,4 @@
-import { Td, Tr, useColorModeValue } from '@chakra-ui/react';
+import { Td, Tr } from '@chakra-ui/react';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { IUser } from '../../../models/user.interface';
@@ -19,9 +19,8 @@ export const UserItem: React.FC<IUserItemProps> = ({ user }) => {
   return (
     <Tr
       _hover={{
-        bg: useColorModeValue("gray.50", "gray.900"),
-        color: useColorModeValue("gray.900", "gray.200"),
-        boxShadow: "lg"
+        bg: "#F3F3F3",
+        boxShadow: "md"
       }}
       onClick={handleGoToProfile}
       cursor={'pointer'}
