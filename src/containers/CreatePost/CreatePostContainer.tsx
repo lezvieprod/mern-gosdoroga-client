@@ -25,7 +25,7 @@ const CreatePostContainer: React.FC = () => {
 
   const onCreatePostHandle = async (data: FormData) => {
     if (token) {
-      await asyncMutate(createPost({ data, token }))
+      await asyncMutate(createPost({ data, token }), true)
       setPostAdded(true)
     }
   }

@@ -7,7 +7,6 @@ import { useMutate } from '../../hooks/mutate.hook';
 import { useAsyncApi } from '../../hooks/query.hook';
 import { IPost } from '../../models/post.interface';
 import { useDeletePostMutation, useGetAllPostsQuery } from '../../redux/api/api';
-
 interface IPostsContainerProps {
   authorLogin?: string,
   forAdmin?: boolean
@@ -20,7 +19,9 @@ const PostsContainer: React.FC<IPostsContainerProps> = ({ authorLogin, forAdmin 
   const { asyncMutate } = useMutate()
   const { token } = useAuth()
 
-  const onDeleteHandle = async (postId: string): Promise<any> => token && await asyncMutate(deletePost({ postId, token }))
+  const onDeleteHandle = async (postId: string) => {
+    token && await asyncMutate(deletePost({ postId, token }), true)
+  }
 
   if (isLoading || isFetching) return <Preloader forInit />
 

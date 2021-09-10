@@ -97,6 +97,12 @@ export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel })
         </AdminLayout>
       </AdminRoute>
 
+      <AdminRoute exact path={'/admin/posts/edit/:postId-:slugTitle'} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
+        <AdminLayout>
+          <PostPageContainer forEdit={true} />
+        </AdminLayout>
+      </AdminRoute>
+
       <Route exact path={'*'}>
         <PageUndefined withLayout={true} />
       </Route>

@@ -7,7 +7,7 @@ import PostItem from './PostItem';
 interface IPostsProps {
   data: IPost[],
   forAdmin?: boolean,
-  onDeleteHandle(postId: string): Promise<any>
+  onDeleteHandle(postId: string): void
 }
 
 const Posts: React.FC<IPostsProps> = ({ data, forAdmin, onDeleteHandle }) => {

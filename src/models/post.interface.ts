@@ -15,8 +15,10 @@ export interface IPost {
   imageAfter: string,
   views: number,
   createDate: Date,
+  lastEdited: number,
   fullUrl: string,
   isCompleted: boolean,
   author: IPostAuthor,
+  slugTitle: string,
   readonly postId: number
 }

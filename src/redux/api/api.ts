@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { IPost } from '../../models/post.interface'
 import { IUser } from '../../models/user.interface'
 import { ILoginResponse, ILoginSubmit } from '../../types/auth.interface'
+import { IGetPostQuery } from '../../types/post.interface'
 
 export const queryApi = createApi({
   reducerPath: 'queryApi',
@@ -39,7 +40,7 @@ export const queryApi = createApi({
           ? [...result.map(({ _id }) => ({ type: 'Posts' as const, _id })), { type: 'Posts', id: 'LIST' }]
           : [{ type: 'Posts', id: 'LIST' }],
     }),
-    getPost: builder.query<IPost, { postId: string, slugTitle: string }>({
+    getPost: builder.query<IPost, IGetPostQuery>({
       query: ({ postId, slugTitle }) => `posts/${postId}/${slugTitle}`,
     }),
     createPost: builder.mutation<IPost, { data: FormData, token: string }>({
@@ -48,6 +49,9 @@ export const queryApi = createApi({
     deletePost: builder.mutation<any, { postId: string, token: string }>({
       query: ({ postId, token }) => ({ url: `posts/delete/${postId}`, method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } }),
       invalidatesTags: ['Posts'],
+    }),
+    editPost: builder.mutation<IPost, { editedData: FormData, token: string, editedPostId: string }>({
+      query: ({ editedData, token, editedPostId }) => ({ url: `posts/edit/${editedPostId}`, method: 'PUT', body: editedData, headers: { 'Authorization': `Bearer ${token}` } }),
     }),
   }),
 })
@@ -66,5 +70,6 @@ export const {
   useGetAllPostsQuery,
   useCreatePostMutation,
   useGetPostQuery,
-  useDeletePostMutation
+  useDeletePostMutation,
+  useEditPostMutation
 } = queryApi

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Image, Heading, Flex } from '@chakra-ui/react';
 import { IPost } from '../../../models/post.interface';
 import { NavButton } from '../../../components/common/custom/NavButton';
@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 interface IPostItemProps extends IPost {
   forAdmin?: boolean,
-  onDeleteHandle(postId: string): Promise<any>
+  onDeleteHandle(postId: string): void
 }
 
 export const PostsAdminItem: React.FC<IPostItemProps> = ({
@@ -19,11 +19,11 @@ export const PostsAdminItem: React.FC<IPostItemProps> = ({
   title,
   author,
   _id,
-
+  slugTitle,
   onDeleteHandle
 }) => {
 
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const onClose = () => setIsOpen(false)
 
   return (
@@ -93,14 +93,14 @@ export const PostsAdminItem: React.FC<IPostItemProps> = ({
           top={0}
           left={0}
           right={0}
-          bottom={0} //
+          bottom={0} 
           w={'100%'}
           h={'100%'}
           zIndex={0}
         />
       </Flex>
       <Flex borderTop={'1px solid #ececec'} mt={'auto'}>
-        <NavButton as={Link} to={'/'} flex={1} py={2} borderRight={'1px solid #ececec'} zIndex={'1'} pos={'relative'} d={'flex'} justifyContent={'center'}>
+        <NavButton as={Link} to={`/admin/posts/edit/${postId}-${slugTitle}`} flex={1} py={2} borderRight={'1px solid #ececec'} zIndex={'1'} pos={'relative'} d={'flex'} justifyContent={'center'}>
           Изменить
         </NavButton>
         <NavButton onClick={() => setIsOpen(true)} to={'/'} flex={1} py={2} zIndex={'1'} pos={'relative'} d={'flex'} justifyContent={'center'}>

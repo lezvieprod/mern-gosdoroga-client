@@ -13,7 +13,8 @@ export const PostPage: React.FC<IPostPageProps> = ({
   imageBefore,
   isCompleted,
   postId,
-  title
+  title,
+  lastEdited
 }) => {
 
   return (
@@ -37,8 +38,17 @@ export const PostPage: React.FC<IPostPageProps> = ({
             </Box>
           </Box>
           <Box>
-           Статус: {isCompleted ? 'Выполнено' : 'Ожидает исполнения'}
+            Статус: {isCompleted ? 'Выполнено' : 'Ожидает исполнения'}
           </Box>
+          {
+            lastEdited
+            &&
+            <Box>
+              Последнее изменение: 
+              {' ' + new Date(lastEdited).toLocaleString('ru', { year: 'numeric', month: 'numeric', day: 'numeric' })}
+            </Box>
+          }
+
         </HStack>
         <Box mt={7}>
           <Image w={'100%'} h={'250px'} src={imageBefore} alt={title} objectFit={'cover'} borderRadius={'md'} />

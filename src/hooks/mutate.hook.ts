@@ -12,18 +12,31 @@ import { isApiError } from '../utils/fetch';
 export const useMutate = () => {
 
   const toast = useToast()
-  const toastId: string = 'mutateError'
+  const toastIdError: string = 'mutateError'
+  const toastIdSuccess: string = 'mutateSuccess'
 
-  const asyncMutate = useCallback(async (callback) => {
+
+  const asyncMutate = useCallback(async (callback, withToast: boolean = false) => {
     try {
-      return await callback.unwrap()
-    } catch ({ data }) {  
+      const response = await callback.unwrap()
+      if (withToast) {
+        toast({
+          id: toastIdSuccess,
+          title: response.title,
+          description: response.message,
+          status: "success",
+          duration: 5000,
+          isClosable: true
+        })
+      }
+      return response
+    } catch ({ data }) {
       if (isApiError(data)) {
-        toast({ id: toastId, title: data.title, description: data.message, status: "error", duration: 5000, isClosable: true })
+        toast({ id: toastIdError, title: data.title, description: data.message, status: "error", duration: 5000, isClosable: true })
         return Promise.reject<IRequestError>({ data })
       } else {
         toast({
-          id: toastId,
+          id: toastIdError,
           title: 'Неопознанная ошибка',
           description: 'При запросе произошла критическая ошибка',
           status: "error",

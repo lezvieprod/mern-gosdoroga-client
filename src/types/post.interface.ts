@@ -4,4 +4,9 @@ export interface IPostCreateSubmit {
   postImageBefore: any,
 }
 
+export interface IGetPostQuery {
+  postId: string, 
+  slugTitle: string 
+}
+
 // title, description

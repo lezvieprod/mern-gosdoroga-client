@@ -8,7 +8,7 @@ import { FaUser } from "react-icons/fa"
 import { IPostCreateSubmit } from "../../../types/post.interface"
 
 interface IRenderImageProps {
-  image?: FileList,
+  image?: FileList | string,
   errors: DeepMap<IPostCreateSubmit, FieldError>
 }
 
@@ -60,15 +60,30 @@ export const RenderPostFormImage: React.FC<IRenderImageProps> = ({ image, errors
         Изменить изображение
       </Flex>
       <Flex alignItems={'center'} w={'100%'}>
-        <Image
-          w={'100%'}
-          h={'270px'}
-          objectFit={'cover'}
-          bg={"gray.100"}
-          border={!!errors.postImageBefore ? '2px solid red' : '0'}
-          icon={<Icon as={FaUser} boxSize={9} mt={3} rounded="full" color={"gray.300"} />}
-          src={URL.createObjectURL(image[0])} alt={image[0].name}
-        />
+        {
+          image instanceof FileList
+            ?
+            <Image
+              w={'100%'}
+              h={'270px'}
+              objectFit={'cover'}
+              bg={"gray.100"}
+              border={!!errors.postImageBefore ? '2px solid red' : '0'}
+              icon={<Icon as={FaUser} boxSize={9} mt={3} rounded="full" color={"gray.300"} />}
+              src={URL.createObjectURL(image[0])} alt={image[0].name}
+            />
+            :
+            <Image
+              w={'100%'}
+              h={'270px'}
+              objectFit={'cover'}
+              bg={"gray.100"}
+              border={!!errors.postImageBefore ? '2px solid red' : '0'}
+              icon={<Icon as={FaUser} boxSize={9} mt={3} rounded="full" color={"gray.300"} />}
+              src={image} alt={''}
+            />
+        }
+        
       </Flex>
     </chakra.label>
   )
