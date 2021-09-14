@@ -40,7 +40,7 @@ export const PostsAdminItem: React.FC<IPostItemProps> = ({
         <Box mr={5}> PostID: {postId}</Box>
         <Box>_ID: {_id}</Box>
       </Flex>
-      <Flex p={4} pos={'relative'} flexDir={{ xs: "column", xl: "column", xxl: "row" }} h={'100%'} bg={'#fff'} _hover={{
+      <Flex p={4} pos={'relative'} flexDir={{ xs: "column", xl: "row", xxl: "row" }} h={'100%'} bg={'#fff'} _hover={{
         bg: '#F3F3F3'
       }}>
         <Box mr={4} minW={'150px'}>

@@ -33,11 +33,12 @@ export const queryApi = createApi({
       query: ({ userLogin, token }) => ({ url: `users/currentuser/${userLogin}`, headers: { 'Authorization': `Bearer ${token}` } }),
     }),
     /*=== Посты ===*/
-    getAllPosts: builder.query<IPost[], string>({
-      query: (userLogin) => userLogin ? `posts/${userLogin}` : `posts`,
+    getAllPosts: builder.query<{ posts: IPost[], total: number }, { authorLogin: string, page: number, limit: number }>({
+      // Отправляет запрос либо с логином автора, либо
+      query: ({ authorLogin, page, limit }) => `posts${authorLogin ? '/' + authorLogin : ''}?page=${page}&limit=${limit}`,
       providesTags: (result) =>
         result
-          ? [...result.map(({ _id }) => ({ type: 'Posts' as const, _id })), { type: 'Posts', id: 'LIST' }]
+          ? [...result.posts.map(({ _id }) => ({ type: 'Posts' as const, _id })), { type: 'Posts', id: 'LIST' }]
           : [{ type: 'Posts', id: 'LIST' }],
     }),
     getPost: builder.query<IPost, IGetPostQuery>({
