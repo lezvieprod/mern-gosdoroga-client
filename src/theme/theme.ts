@@ -2,6 +2,8 @@ import { extendTheme } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools"
 import "@fontsource/inter";
 import "@fontsource/inter/700.css";
+import "@fontsource/inter/600.css";
+
 import { ContainerTheme, NavButtonTheme } from "./components.theme";
 
 

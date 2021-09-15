@@ -20,14 +20,10 @@ interface ICreatePostProps extends IPost {
 }
 
 export const PostEdit: React.FC<ICreatePostProps> = ({
-  author,
-  createDate,
   description,
   imageBefore,
-  isCompleted,
   postId,
   title,
-
   onPostEditHandle,
   isLoading
 }) => {

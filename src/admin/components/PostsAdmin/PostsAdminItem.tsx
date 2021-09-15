@@ -4,6 +4,7 @@ import { IPost } from '../../../models/post.interface';
 import { NavButton } from '../../../components/common/custom/NavButton';
 import { CAlertDialog } from '../../../components/common/CAlertDialog';
 import { Link } from 'react-router-dom';
+import { createPrettyDate } from '../../../utils/date';
 
 
 interface IPostItemProps extends IPost {
@@ -15,7 +16,7 @@ export const PostsAdminItem: React.FC<IPostItemProps> = ({
   postId,
   fullUrl,
   imageBefore,
-  isCompleted,
+  createDate,
   title,
   author,
   _id,
@@ -71,7 +72,7 @@ export const PostsAdminItem: React.FC<IPostItemProps> = ({
           </Heading>
           <Box fontSize={'sm'} mt={'auto'}>
             <Box>
-              Статус: {isCompleted ? 'Выполнено' : 'Ожидает исполнения'}
+              Дата: {createPrettyDate(createDate)}
             </Box>
             <Box>
               Автор:
@@ -103,7 +104,7 @@ export const PostsAdminItem: React.FC<IPostItemProps> = ({
         <NavButton as={Link} to={`/admin/posts/edit/${postId}-${slugTitle}`} flex={1} py={2} borderRight={'1px solid #ececec'} zIndex={'1'} pos={'relative'} d={'flex'} justifyContent={'center'}>
           Изменить
         </NavButton>
-        <NavButton onClick={() => setIsOpen(true)} to={'/'} flex={1} py={2} zIndex={'1'} pos={'relative'} d={'flex'} justifyContent={'center'}>
+        <NavButton onClick={() => setIsOpen(true)} flex={1} py={2} zIndex={'1'} pos={'relative'} d={'flex'} justifyContent={'center'}>
           Удалить
         </NavButton>
         <CAlertDialog

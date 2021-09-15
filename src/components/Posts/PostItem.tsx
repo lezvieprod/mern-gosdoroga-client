@@ -1,21 +1,26 @@
-import { Box, Image, Heading, Flex } from '@chakra-ui/react';
+import { Box, Image, Heading, Flex, Icon, HStack } from '@chakra-ui/react';
 import React from 'react';
+import { FiEye } from 'react-icons/fi';
+import { VscAccount, VscCalendar } from 'react-icons/vsc';
 import { Link } from 'react-router-dom';
 import { IPost } from '../../models/post.interface';
+import { createPrettyDate } from '../../utils/date';
 
 
 const PostItem: React.FC<IPost> = ({
   fullUrl,
+  createDate,
   imageBefore,
-  isCompleted,
   title,
   author,
+  views,
+  description
 }) => {
 
   return (
     <Box bg={'#fff'} borderRadius={'md'} overflow={'hidden'} boxShadow={'sm'} pos={'relative'}>
       <Flex p={4} flexDir={'column'} h={'100%'}>
-        <Box w={'100%'} mb={3}>
+        <Box w={'100%'} mb={4}>
           <Image
             w={'100%'}
             h={'180px'}
@@ -27,7 +32,7 @@ const PostItem: React.FC<IPost> = ({
         </Box>
         <Heading
           as={'h2'}
-          fontSize={'large'}
+          fontSize={'20px'}
           mb={3}
           maxH={'4rem'}
           d={'-webkit-box'}
@@ -40,24 +45,34 @@ const PostItem: React.FC<IPost> = ({
         >
           {title}
         </Heading>
-        <Box fontSize={'sm'} mt={'auto'}>
-          <Box>
-            Статус: {isCompleted ? 'Выполнено' : 'Ожидает исполнения'}
-          </Box>
-          <Box>
-            Автор:
+        <Box fontSize={'sm'} mb={4}>
+          {description.substring(0, 90) + '...'}
+        </Box>
+        <HStack fontSize={'sm'} mt={'auto'} spacing={3}>
+          <Flex alignItems={'center'}>
+            <Icon as={VscAccount} boxSize={'17px'} mr={1} title={'Автор'} />
             <Box
               as={Link}
               to={'/profile/' + author.userLogin}
               ml={1}
               zIndex={5}
               pos={'relative'}
+              borderBottom={'1px solid transparent'}
               sx={{ '&:hover': { borderBottom: '1px solid', borderColor: 'blue.400' } }}
             >
               {author.userLogin}
             </Box>
-          </Box>
-        </Box>
+          </Flex>
+          <Flex alignItems={'center'}>
+            <Icon as={VscCalendar} boxSize={'17px'} mr={1} title={'Дата создания'} />
+            {createPrettyDate(createDate)}
+          </Flex>
+          <Flex alignItems={'center'}>
+            <Icon as={FiEye} boxSize={'17px'} mr={1} title={'Отредактировано'} />
+            {views}
+          </Flex>
+
+        </HStack>
       </Flex>
       <Box as={Link} to={fullUrl}
         pos={'absolute'}

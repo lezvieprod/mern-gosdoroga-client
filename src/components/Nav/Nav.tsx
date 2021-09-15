@@ -1,9 +1,9 @@
-import { Box, Container, Heading, HStack, Icon, Image, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList, useColorModeValue} from '@chakra-ui/react';
+import { Box, Container, Heading, HStack, Icon, Image, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList } from '@chakra-ui/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/auth.hook';
 import { useLang } from '../../hooks/lang.hook';
-import { VscChevronDown,VscRocket } from "react-icons/vsc";
+import { VscChevronDown, VscRocket } from "react-icons/vsc";
 import { NavButton } from '../common/custom/NavButton';
 
 export const Nav: React.FC = () => {
@@ -12,7 +12,7 @@ export const Nav: React.FC = () => {
   const { lang, renderText } = useLang()
 
   return (
-    <Box maxH={'70px'} h={'100%'} bg={useColorModeValue("#FCFCFC", "gray.900")} boxShadow="sm">
+    <Box maxH={'70px'} h={'100%'} bg={"#FCFCFC"} boxShadow="sm">
       <Container h={'100%'}>
         <Box d={'flex'} justifyContent={'space-between'} h={'100%'}>
           <Heading as="h2" size="md">
@@ -41,8 +41,8 @@ export const Nav: React.FC = () => {
                       }}
                       cursor={'pointer'} px={'0.5rem'} d={'flex'} h={'100%'} alignItems={'center'}
                     >
-                     {userPhoto && <Image src={userPhoto} boxSize={8} objectFit={'cover'} alt={''} borderRadius={'50px'} mr={2}/>   }
-                     {userLogin} <Icon as={VscChevronDown} ml={2} />
+                      {userPhoto && <Image src={userPhoto} boxSize={8} objectFit={'cover'} alt={''} borderRadius={'50px'} mr={2} />}
+                      {userLogin} <Icon as={VscChevronDown} ml={2} />
                     </NavButton>
                     <MenuList>
                       {
@@ -60,10 +60,6 @@ export const Nav: React.FC = () => {
                     </MenuList>
                   </Menu>
               }
-              {/* <Box onClick={onOpen} cursor={'pointer'} px={'0.5rem'} h={'100%'} d={'flex'} alignItems={'center'}>
-               
-                <AppSettings isOpen={isOpen} onClose={onClose} handleOnSwitch={handleOnSwitch} />
-              </Box> */}
             </HStack>
           </Box>
         </Box>

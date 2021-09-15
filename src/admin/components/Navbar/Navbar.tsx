@@ -32,14 +32,8 @@ export const Navbar: React.FC<INavbarProps> = ({ sidebar }) => {
         icon={<FiMenu />}
         size="sm"
       />
-      <InputGroup w="96" display={{ base: "none", lg: "flex" }}>
-        <InputLeftElement
-          color="#EEF4FF"
-          children={<FiSearch />}
-        />
-        <Input color="#EEF4FF" placeholder="Search for articles..." borderColor={'#393f47'} />
-      </InputGroup>
-      <Flex align="center">
+
+      <Flex align="center" ml={'auto'}>
         <Flex align="center" as={Link} to={'/'} mr={6}>
           <Icon as={VscWindow} boxSize="5" />
         </Flex>

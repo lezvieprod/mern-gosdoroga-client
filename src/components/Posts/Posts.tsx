@@ -3,6 +3,7 @@ import Pagination from '@choc-ui/paginator';
 import React from 'react';
 import { useHistory } from 'react-router';
 import { PostsAdminItem } from '../../admin/components/PostsAdmin/PostsAdminItem';
+import { PostsAdminMiniItem } from '../../admin/components/PostsAdmin/PostsAdminMiniItem';
 import { IPost } from '../../models/post.interface';
 import { POSTS_PER_PAGE } from '../../utils/constants';
 import PostItem from './PostItem';
@@ -13,7 +14,10 @@ interface IPostsProps {
   forAdmin?: boolean,
   onDeleteHandle(postId: string): void,
   currentPage: string,
-  authorLogin?: string
+  authorLogin?: string,
+  isMiniItems?: boolean,
+  itemsLimit?: number,
+  withPagination?: boolean
 }
 
 const Posts: React.FC<IPostsProps> = ({
@@ -22,7 +26,10 @@ const Posts: React.FC<IPostsProps> = ({
   forAdmin,
   onDeleteHandle,
   currentPage,
-  authorLogin
+  authorLogin,
+  isMiniItems,
+  itemsLimit,
+  withPagination
 }) => {
 
   const history = useHistory()
@@ -30,17 +37,22 @@ const Posts: React.FC<IPostsProps> = ({
   return (
     <>
       {!authorLogin && !forAdmin && <Heading mb={8} fontSize={'24px'}>Последние посты</Heading>}
-      <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={4} w={'100%'} mb={8}>
-        {
-          forAdmin
-            ? posts.map(post => <PostsAdminItem key={post.postId} {...post} forAdmin={forAdmin} onDeleteHandle={onDeleteHandle} />)
-            : posts.map(post => <PostItem key={post.postId} {...post} />)
-        }
-      </SimpleGrid>
-      <Flex justifyContent={'center'} >
-        {
-          total > POSTS_PER_PAGE
-          &&
+      {
+        isMiniItems
+          ? posts.map(post => <PostsAdminMiniItem key={post.postId} {...post} />)
+          : <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={4} w={'100%'}>
+            {
+              forAdmin
+                ? posts.map(post => <PostsAdminItem key={post.postId} {...post} onDeleteHandle={onDeleteHandle} />)
+                : posts.map(post => <PostItem key={post.postId} {...post} />)
+            }
+          </SimpleGrid>
+      }
+
+
+      {
+        withPagination && (total > POSTS_PER_PAGE || itemsLimit) &&
+        <Flex justifyContent={'center'} mt={8}>
           <Pagination
             current={Number(currentPage)}
             defaultCurrent={1}
@@ -61,16 +73,16 @@ const Posts: React.FC<IPostsProps> = ({
                 if (authorLogin) {
                   return history.push(`/${authorLogin}/page/${page}`)
                 } else {
-
                   return history.push(`/page/${page}`)
                 }
               }
             }
             }
           />
-        }
+        </Flex>
+      }
 
-      </Flex>
+
     </>
   );
 }

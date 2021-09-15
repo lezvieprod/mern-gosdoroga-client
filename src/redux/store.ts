@@ -1,13 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import auth from "./reducers/auth.reducer"
 import app from "./reducers/app.reducer"
-import admin from "./reducers/admin.reducer"
 import { queryApi } from "./api/api"
 
 const reducers = combineReducers({
-  app,
+  app, 
   auth, 
-  admin,
   [queryApi.reducerPath]: queryApi.reducer,
 })
 

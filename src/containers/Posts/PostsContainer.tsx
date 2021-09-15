@@ -11,10 +11,21 @@ import { useDeletePostMutation, useGetAllPostsQuery } from '../../redux/api/api'
 import { POSTS_PER_PAGE } from '../../utils/constants';
 interface IPostsContainerProps {
   authorLogin?: string,
-  forAdmin?: boolean
+  forAdmin?: boolean,
+  isMiniItems?: boolean,
+  itemsLimit?: number,
+  withPagination?: boolean,
+  sort?: 'dateasc' | 'datedesc'
 }
 
-const PostsContainer: React.FC<IPostsContainerProps> = ({ authorLogin, forAdmin }) => {
+const PostsContainer: React.FC<IPostsContainerProps> = ({
+  authorLogin,
+  forAdmin,
+  isMiniItems,
+  itemsLimit,
+  withPagination,
+  sort
+}) => {
 
   const { pageNumber } = useParams<Record<string, string>>()
 
@@ -22,7 +33,9 @@ const PostsContainer: React.FC<IPostsContainerProps> = ({ authorLogin, forAdmin 
     data,
     isLoading,
     isFetching
-  } = useAsyncApi<{ posts: IPost[], total: number }>(useGetAllPostsQuery, { authorLogin, page: pageNumber || 1, limit: POSTS_PER_PAGE })
+  } = useAsyncApi<{ posts: IPost[], total: number }>(useGetAllPostsQuery, {
+    authorLogin, page: pageNumber || 1, limit: itemsLimit || POSTS_PER_PAGE, sort: sort || 'datedesc'
+  })
 
   const [deletePost] = useDeletePostMutation()
   const { asyncMutate } = useMutate()
@@ -37,11 +50,13 @@ const PostsContainer: React.FC<IPostsContainerProps> = ({ authorLogin, forAdmin 
   if (data) return <Posts
     {...data}
     forAdmin={forAdmin}
+    isMiniItems={isMiniItems}
+    itemsLimit={itemsLimit}
     onDeleteHandle={onDeleteHandle}
     currentPage={pageNumber}
     authorLogin={authorLogin}
+    withPagination={withPagination}
   />
-
 
   return <PageUndefined />
 }

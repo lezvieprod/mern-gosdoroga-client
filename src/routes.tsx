@@ -7,6 +7,7 @@ import { AuthLayout } from './layouts/Auth.layout';
 import { MainLayout } from './layouts/Main.layout';
 
 import { PageUndefined } from './components/common/PageUndefined';
+import { MainAdminContainer } from './admin/containers/MainAdmin/MainAdminContainer';
 
 const LoginContainer = lazy(() => import('./containers/Auth/LoginContainer'));
 const RegContainer = lazy(() => import('./containers/Auth/RegContainer'));
@@ -36,7 +37,6 @@ interface IAuthRoute {
 }
 
 
-
 export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel }) => {
   return (
     <Switch>
@@ -55,7 +55,7 @@ export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel })
 
       <Route exact path={["/", '/page/:pageNumber']}>
         <MainLayout>
-          <PostsContainer />
+          <PostsContainer withPagination />
         </MainLayout>
       </Route>
 
@@ -82,19 +82,19 @@ export const Routes: React.FC<IRoutesProps> = ({ isAuthenticated, accessLevel })
 
       <AdminRoute exact path={'/admin'} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
         <AdminLayout>
-          Главная страница админ панели
+          <MainAdminContainer />
         </AdminLayout>
       </AdminRoute>
 
-      <AdminRoute exact path={'/admin/users'} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
+      <AdminRoute exact path={["/admin/users", '/admin/users/page/:pageNumber']} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
         <AdminLayout>
-          <UsersContainer />
+          <UsersContainer withPagination />
         </AdminLayout>
       </AdminRoute>
 
       <AdminRoute exact path={["/admin/posts", '/admin/posts/page/:pageNumber']} isAuthenticated={isAuthenticated} accessLevel={accessLevel}>
         <AdminLayout>
-          <PostsContainer forAdmin={true} />
+          <PostsContainer forAdmin={true} withPagination />
         </AdminLayout>
       </AdminRoute>
 

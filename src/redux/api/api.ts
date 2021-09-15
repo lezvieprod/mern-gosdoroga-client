@@ -10,7 +10,7 @@ export const queryApi = createApi({
     baseUrl: '/api/'
   }),
   keepUnusedDataFor: 0,
-  tagTypes: ['Posts'],
+  tagTypes: ['Posts', 'Users'],
   endpoints: (builder) => ({
     /*=== Пользователи ===*/
     getUserByLogin: builder.query<IUser, string>({
@@ -19,8 +19,14 @@ export const queryApi = createApi({
     getUserByLoginLazy: builder.mutation<IUser, string>({
       query: (query) => `users/${query}`,
     }),
-    getAllUsers: builder.query<IUser[], string>({
-      query: (token) => ({ url: `users`, headers: { 'Authorization': `Bearer ${token}` } }),
+    getAllUsers: builder.query<{ users: IUser[], total: number }, { token: string, page: number, limit: number, sort: string }>({
+      query: ({ token, page, limit, sort }) => {
+        return { url: `users?page=${page}&limit=${limit}&sort=${sort}`, headers: { 'Authorization': `Bearer ${token}` } }
+      },
+    }),
+    deleteUser: builder.mutation<any, { userId: string, token: string }>({
+      query: ({ userId, token }) => ({ url: `users/delete/${userId}`, method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } }),
+      invalidatesTags: ['Users'],
     }),
     /*=== Авторизация ===*/
     registration: builder.mutation<IUser, FormData>({
@@ -33,9 +39,11 @@ export const queryApi = createApi({
       query: ({ userLogin, token }) => ({ url: `users/currentuser/${userLogin}`, headers: { 'Authorization': `Bearer ${token}` } }),
     }),
     /*=== Посты ===*/
-    getAllPosts: builder.query<{ posts: IPost[], total: number }, { authorLogin: string, page: number, limit: number }>({
+    getAllPosts: builder.query<{ posts: IPost[], total: number }, { authorLogin: string, page: number, limit: number, sort: string }>({
       // Отправляет запрос либо с логином автора, либо
-      query: ({ authorLogin, page, limit }) => `posts${authorLogin ? '/' + authorLogin : ''}?page=${page}&limit=${limit}`,
+      query: ({ authorLogin, page, limit, sort }) => {
+        return `posts${authorLogin ? '/' + authorLogin : ''}?page=${page}&limit=${limit}&sort=${sort}`
+      },
       providesTags: (result) =>
         result
           ? [...result.posts.map(({ _id }) => ({ type: 'Posts' as const, _id })), { type: 'Posts', id: 'LIST' }]
@@ -54,6 +62,10 @@ export const queryApi = createApi({
     editPost: builder.mutation<IPost, { editedData: FormData, token: string, editedPostId: string }>({
       query: ({ editedData, token, editedPostId }) => ({ url: `posts/edit/${editedPostId}`, method: 'PUT', body: editedData, headers: { 'Authorization': `Bearer ${token}` } }),
     }),
+    /*=== Счетчики ===*/
+    getAllCounters: builder.query<{ usersTotal: number, postsTotal: number }, { token: string }>({
+      query: (token) => ({ url: `counters`, headers: { 'Authorization': `Bearer ${token}` } }),
+    }),
   }),
 })
 
@@ -63,6 +75,7 @@ export const {
   useGetUserByLoginQuery,
   useGetUserByLoginLazyMutation,
   useGetAllUsersQuery,
+  useDeleteUserMutation,
   /*=== Авторизация ===*/
   useRegistrationMutation,
   useSendLoginMutation,
@@ -72,5 +85,7 @@ export const {
   useCreatePostMutation,
   useGetPostQuery,
   useDeletePostMutation,
-  useEditPostMutation
+  useEditPostMutation,
+  /*=== Счетчики ===*/
+  useGetAllCountersQuery
 } = queryApi

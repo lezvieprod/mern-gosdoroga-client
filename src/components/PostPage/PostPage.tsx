@@ -1,20 +1,22 @@
-import { Box, Container, Heading, HStack } from '@chakra-ui/layout';
+import { Box, Container, Flex, Heading, HStack } from '@chakra-ui/layout';
 import React from 'react';
 import { IPost } from '../../models/post.interface';
 import { Link } from 'react-router-dom';
 import { Image } from '@chakra-ui/image';
+import { createPrettyDate } from '../../utils/date';
+import Icon from '@chakra-ui/icon';
+import { VscAccount, VscCalendar, VscEdit } from 'react-icons/vsc';
+import { FiEye } from 'react-icons/fi';
 
-interface IPostPageProps extends IPost { }
 
-export const PostPage: React.FC<IPostPageProps> = ({
+export const PostPage: React.FC<IPost> = ({
   author,
   createDate,
   description,
   imageBefore,
-  isCompleted,
-  postId,
   title,
-  lastEdited
+  lastEdited,
+  views
 }) => {
 
   return (
@@ -24,8 +26,8 @@ export const PostPage: React.FC<IPostPageProps> = ({
           {title}
         </Heading>
         <HStack mt={4} spacing={5}>
-          <Box>
-            Автор:
+          <Flex alignItems={'center'}>
+            <Icon as={VscAccount} boxSize={'17px'} mr={1} title={'Автор'} />
             <Box
               as={Link}
               to={'/profile/' + author.userLogin}
@@ -36,19 +38,23 @@ export const PostPage: React.FC<IPostPageProps> = ({
             >
               {author.userLogin}
             </Box>
-          </Box>
-          <Box>
-            Статус: {isCompleted ? 'Выполнено' : 'Ожидает исполнения'}
-          </Box>
+          </Flex>
+          <Flex alignItems={'center'}>
+            <Icon as={VscCalendar} boxSize={'17px'} mr={1} title={'Дата создания'} />
+            {createPrettyDate(createDate)}
+          </Flex>
           {
             lastEdited
             &&
-            <Box>
-              Последнее изменение: 
+            <Flex alignItems={'center'}>
+              <Icon as={VscEdit} boxSize={'17px'} mr={1} title={'Отредактировано'} />
               {' ' + new Date(lastEdited).toLocaleString('ru', { year: 'numeric', month: 'numeric', day: 'numeric' })}
-            </Box>
+            </Flex>
           }
-
+          <Flex alignItems={'center'}>
+            <Icon as={FiEye} boxSize={'17px'} mr={1} title={'Отредактировано'} />
+            {views}
+          </Flex>
         </HStack>
         <Box mt={7}>
           <Image w={'100%'} h={'250px'} src={imageBefore} alt={title} objectFit={'cover'} borderRadius={'md'} />
