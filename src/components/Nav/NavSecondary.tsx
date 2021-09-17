@@ -7,7 +7,6 @@ import { NavButton } from '../common/custom/NavButton'
 export const NavSecondary: React.FC = () => {
 
   const { lang, setNewLang } = useLang()
-  const handleOnSwitch = () => lang === 'RU' ? setNewLang('EN') : setNewLang('RU')
 
   return (
     <Box maxH={'45px'} h={'100%'} bg={'#1E3685'} boxShadow="base">
@@ -17,12 +16,12 @@ export const NavSecondary: React.FC = () => {
             <NavButton as={MenuButton} color={'#fff'} _hover={{ bgColor: '#2344a4' }}>
               <Flex alignItems={'center'}>
                 <Icon as={VscGlobe} w={5} h={5} mr={2} />
-                {lang === '{}' ? 'RU' : lang}
+                {lang}
               </Flex>
             </NavButton>
             <MenuList>
-              <MenuItem onClick={handleOnSwitch} pointerEvents={lang === 'RU' ? 'none' : 'all'}>Russian</MenuItem>
-              <MenuItem onClick={handleOnSwitch} pointerEvents={lang === 'EN' ? 'none' : 'all'}>English</MenuItem>
+              <MenuItem onClick={() => setNewLang('RU')} pointerEvents={lang === 'RU' ? 'none' : 'all'}>Russian</MenuItem>
+              <MenuItem onClick={() => setNewLang('EN')} pointerEvents={lang === 'EN' ? 'none' : 'all'}>English</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

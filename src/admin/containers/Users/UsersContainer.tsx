@@ -9,6 +9,7 @@ import { PageUndefined } from '../../../components/common/PageUndefined';
 import { useParams } from 'react-router';
 import { USERS_PER_PAGE } from '../../../utils/constants';
 import { useMutate } from '../../../hooks/mutate.hook';
+import { PageNoContent } from '../../../components/common/PageNoContent';
 
 interface UsersContainerProps {
   sort?: 'dateasc',
@@ -37,11 +38,13 @@ const UsersContainer: React.FC<UsersContainerProps> = ({
   const [deleteUser] = useDeleteUserMutation()
   const { asyncMutate } = useMutate()
 
-  const onDeleteHandle = async (userId: string) => {
+  const onDeleteHandle = async (userId: number) => {
     token && await asyncMutate(deleteUser({ userId, token }), true)
   }
 
   if (isLoading || isFetching) return <Preloader forInit />
+
+  if (data && !data.users.length) return <PageNoContent />
 
   if (data) return <Users
     {...data}

@@ -1,9 +1,10 @@
-import { Box, UseDisclosureProps, Flex, Icon, IconButton, Input, InputGroup, InputLeftElement, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { Box, UseDisclosureProps, Flex, Icon, IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import React from 'react';
-import { FiMenu, FiSearch } from 'react-icons/fi';
+import { FiMenu } from 'react-icons/fi';
 import { VscChevronDown, VscWindow } from 'react-icons/vsc';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../hooks/auth.hook';
+import { useLang } from '../../../hooks/lang.hook';
 
 interface INavbarProps {
   sidebar: UseDisclosureProps
@@ -12,6 +13,7 @@ interface INavbarProps {
 export const Navbar: React.FC<INavbarProps> = ({ sidebar }) => {
 
   const { logout, userLogin } = useAuth()
+  const { lang, renderText } = useLang()
 
   return (
     <Flex
@@ -47,8 +49,8 @@ export const Navbar: React.FC<INavbarProps> = ({ sidebar }) => {
             {userLogin} <Icon as={VscChevronDown} ml={2} />
           </MenuButton>
           <MenuList>
-            <MenuItem as={Link} to={'/'}>Вернуться на главную</MenuItem>
-            <MenuItem onClick={logout}>Выйти из аккаунта</MenuItem>
+            <MenuItem as={Link} to={'/'}>{renderText(lang).BACK_TO_MAIN}</MenuItem>
+            <MenuItem onClick={logout}>{renderText(lang).LOGOUT}</MenuItem>
           </MenuList>
         </Menu>
       </Flex>

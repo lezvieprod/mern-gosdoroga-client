@@ -10,7 +10,6 @@ export const Preloader: React.FC<IPreloaderProps> = ({ forInit }) => {
     <Box
       d={'flex'}
       justifyContent={'center'}
-      // alignItems={'center'}
       py={4}
       my={forInit ? '5rem' : '0'}
       flex={'1 0 auto'}

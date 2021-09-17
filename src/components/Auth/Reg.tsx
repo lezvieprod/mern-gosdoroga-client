@@ -1,4 +1,4 @@
-import { Avatar, HStack, Box, Button, chakra, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Icon, Input, SimpleGrid, Text, VisuallyHidden, VStack } from '@chakra-ui/react';
+import { Avatar, HStack, Box, Button, chakra, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Icon, Input, SimpleGrid, Text, VisuallyHidden, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
@@ -6,6 +6,7 @@ import { IRegSubmit } from '../../types/auth.interface';
 import { EmailValidateParams, PasswordValidateParams, renderFieldError, UserLoginValidateParams, UserPhotoValidateParams } from '../../utils/validations';
 import { FaUser } from 'react-icons/fa';
 import { AVAILABLE_REG_IMAGE_FORMATS } from '../../utils/constants';
+import { useLang } from '../../hooks/lang.hook';
 
 interface IRegProps {
   onSubmitHandle(data: FormData): void,
@@ -14,6 +15,7 @@ interface IRegProps {
 
 export const Reg: React.FC<IRegProps> = ({ onSubmitHandle, isLoading }) => {
 
+  const { lang, renderText } = useLang()
   const { register, handleSubmit, watch, getValues, formState: { errors } } = useForm<IRegSubmit>();
   const onSubmit = handleSubmit(data => {
     let bodyFormData = new FormData();
@@ -36,7 +38,7 @@ export const Reg: React.FC<IRegProps> = ({ onSubmitHandle, isLoading }) => {
   return (
     <>
       <Box mb={6}>
-        <Heading as={'h1'} fontSize={'3xl'}>Регистрация</Heading>
+        <Heading as={'h1'} fontSize={'3xl'}>{renderText(lang).REGISTRATION}</Heading>
       </Box>
       <form onSubmit={onSubmit} >
         <VStack spacing={6} align="stretch" mb={6}>
@@ -44,13 +46,12 @@ export const Reg: React.FC<IRegProps> = ({ onSubmitHandle, isLoading }) => {
             <FormControl id="email" isInvalid={!!errors.email}>
               <FormLabel>Email</FormLabel>
               <Input type="text" {...register("email", EmailValidateParams)} />
-              <FormHelperText>Мы никогда никому не покажем ваш email.</FormHelperText>
               <FormErrorMessage>
                 {errors.email && renderFieldError('email', errors.email.type)}
               </FormErrorMessage>
             </FormControl>
             <FormControl id="userLogin" isInvalid={!!errors.userLogin}>
-              <FormLabel>Логин</FormLabel>
+              <FormLabel>{renderText(lang).LOGIN}</FormLabel>
               <Input type={'text'} {...register("userLogin", UserLoginValidateParams)} />
               <FormErrorMessage>
                 {errors.userLogin && renderFieldError('userLogin', errors.userLogin.type)}
@@ -59,7 +60,7 @@ export const Reg: React.FC<IRegProps> = ({ onSubmitHandle, isLoading }) => {
           </SimpleGrid>
           <FormControl isInvalid={!!errors.userPhoto}>
             <FormLabel>
-              Фото профиля
+              {renderText(lang).PROFILE_PHOTO}
             </FormLabel>
             <Flex alignItems="center">
               {
@@ -99,14 +100,14 @@ export const Reg: React.FC<IRegProps> = ({ onSubmitHandle, isLoading }) => {
                     _focus={{ shadow: "none" }}
                     pointerEvents="none"
                   >
-                    {!image ? 'Установить изображение' : 'Изменить изображение'}
+                    {!image ? renderText(lang).SET_IMAGE : renderText(lang).CHANGE_IMAGE}
                   </Button>
                   <VisuallyHidden>
                     <input id={'image-upload'} type="file"
                       {...register("userPhoto", UserPhotoValidateParams)} accept=".jpg, .jpeg, .png" />
                   </VisuallyHidden>
                 </chakra.label>
-                <Text mt={2} fontSize={'sm'} color={'gray.500'}>Разрешенные форматы: {AVAILABLE_REG_IMAGE_FORMATS.join(", ")}</Text>
+                <Text mt={2} fontSize={'sm'} color={'gray.500'}>{renderText(lang).PERMITTED_FORMATS}: {AVAILABLE_REG_IMAGE_FORMATS.join(", ")}</Text>
               </Box>
             </Flex>
             <FormErrorMessage mt={2}>
@@ -115,14 +116,14 @@ export const Reg: React.FC<IRegProps> = ({ onSubmitHandle, isLoading }) => {
           </FormControl>
           <SimpleGrid columns={2} spacing={6}>
             <FormControl id="password" isInvalid={!!errors.password}>
-              <FormLabel>Пароль</FormLabel>
+              <FormLabel>{renderText(lang).PASSWORD}</FormLabel>
               <Input type="password" {...register("password", PasswordValidateParams)} />
               <FormErrorMessage>
                 {errors.password && renderFieldError('password', errors.password.type)}
               </FormErrorMessage>
             </FormControl>
             <FormControl id="password_repeat" isInvalid={!!errors.password_repeat}>
-              <FormLabel>Повторите пароль</FormLabel>
+              <FormLabel>{renderText(lang).REPEAT_PASSWORD}</FormLabel>
               <Input type="password" {...register("password_repeat",
                 {
                   required: true,
@@ -142,10 +143,10 @@ export const Reg: React.FC<IRegProps> = ({ onSubmitHandle, isLoading }) => {
         </VStack>
         <HStack mt={9} spacing={2} align="stretch" alignItems={'center'} justifyContent={'space-between'}>
           <Button type={'submit'} colorScheme="blue" px={12} variant="solid" isLoading={isLoading}>
-          Зарегистрироваться
+            {renderText(lang).REG_IN}
           </Button>
           <Box as={Link} to={'/auth/login'} borderBottom={'1px solid'} borderColor={'blue.400'}>
-          Есть аккаунт?
+            {renderText(lang).HAS_ACC_QUEST}
           </Box>
         </HStack>
       </form>

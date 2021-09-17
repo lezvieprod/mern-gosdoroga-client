@@ -1,5 +1,6 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Text } from '@chakra-ui/react';
 import React from 'react';
+import { useLang } from '../../hooks/lang.hook';
 
 interface ICAlertProps {
   alertTitle: string,
@@ -10,6 +11,9 @@ interface ICAlertProps {
 }
 
 export const CAlert: React.FC<ICAlertProps> = ({ alertTitle, alertDescription, forAuth, alertType, ...props }) => {
+
+  const { lang, renderText } = useLang()
+
   return <Alert
     status={alertType}
     variant="subtle"
@@ -31,7 +35,7 @@ export const CAlert: React.FC<ICAlertProps> = ({ alertTitle, alertDescription, f
     {
       forAuth &&
       <AlertDescription maxWidth="sm" fontSize="lg">
-        Редирект на страницу авторизации через <Text fontSize="2xl" mx={4} fontWeight={'700'} mt={5}>{props.initialTime}</Text>
+        {renderText(lang).REG_REDIRECT} <Text fontSize="2xl" mx={4} fontWeight={'700'} mt={5}>{props.initialTime}</Text>
       </AlertDescription>
     }
   </Alert>

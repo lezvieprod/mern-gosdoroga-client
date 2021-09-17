@@ -5,6 +5,7 @@ import { HiCollection } from 'react-icons/hi';
 import { MdHome } from 'react-icons/md';
 import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../../../hooks/auth.hook';
+import { useLang } from '../../../hooks/lang.hook';
 import { SidebarItem } from './SidebarItem';
 
 interface ISidebarProps {
@@ -15,6 +16,7 @@ export const Sidebar: React.FC<ISidebarProps> = (props) => {
 
 
   const { userLogin, userPhoto, accessLevel } = useAuth()
+  const { lang, renderText } = useLang()
 
   return (
     <Box
@@ -43,7 +45,7 @@ export const Sidebar: React.FC<ISidebarProps> = (props) => {
 
           fontWeight="semibold"
         >
-          Admin Panel
+          {renderText(lang).ADMIN_PANEL_TITLE}
         </Text>
       </Flex>
       <Flex
@@ -53,9 +55,9 @@ export const Sidebar: React.FC<ISidebarProps> = (props) => {
         color="#EEF4FF"
         aria-label="Main Navigation"
       >
-        <SidebarItem as={NavLink} exact to={'/admin'} icon={MdHome}>Главная</SidebarItem>
-        <SidebarItem as={NavLink} exact to={'/admin/posts'} icon={FaRss}>Посты</SidebarItem>
-        <SidebarItem as={NavLink} exact to={'/admin/users'} icon={HiCollection}>Пользователи</SidebarItem>
+        <SidebarItem as={NavLink} exact to={'/admin'} icon={MdHome}>{renderText(lang).ADMIN_PANEL_MAIN}</SidebarItem>
+        <SidebarItem as={NavLink} exact to={'/admin/posts'} icon={FaRss}>{renderText(lang).POSTS}</SidebarItem>
+        <SidebarItem as={NavLink} exact to={'/admin/users'} icon={HiCollection}>{renderText(lang).USERS}</SidebarItem>
         {/* <SidebarItem icon={FaClipboardCheck}>Уведомления</SidebarItem> */}
       </Flex>
       <Box
@@ -75,7 +77,7 @@ export const Sidebar: React.FC<ISidebarProps> = (props) => {
         </Box>
         <Box fontSize={'sm'}>
           <Box>{userLogin}</Box>
-          <Box color={'#83878d'}>{accessLevel === 5 && `Администратор (${accessLevel})`}</Box>
+          <Box color={'#83878d'}>{accessLevel === 5 && `${renderText(lang).ADMIN} (${accessLevel})`}</Box>
         </Box>
       </Box>
     </Box>

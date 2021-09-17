@@ -8,7 +8,7 @@ import { LANG } from "../lang/lang"
 
 export const useLang = () => {
 
-  const currentLang = localStorage.getItem('lang') || '{}'
+  const currentLang = localStorage.getItem('lang') || 'RU'
   const [lang, setLang] = useState<string>('')
   const history = useHistory()
 

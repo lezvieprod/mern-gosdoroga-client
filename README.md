@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# Клиентская часть фулстек приложения
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Репозиторий является клиентской частью фулстек приложения.
+Полное приложение запущено по ссылке: _временно отсутствует_
 
-## Available Scripts
+Зарезервированный администраторский аккаунт для тестирования:
+Email: localhost_admin@local.host
+Password: admin
+Уровень доступа аккаунта - 5
 
-In the project directory, you can run:
+Зарезервированный пользовательский аккаунт для тестирования:
+Email: localhost_user@local.host
+Password: user1
+Уровень доступа аккаунта - 1
 
-### `npm start`
+Регистрация новых аккаунтов **доступна**.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Описание
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Приложение представляет собой информационный портал, с возможностью разделения пользователей по ролям, добавлением постов и их редактированием / удалением.  
 
-### `npm test`
+Приложение совмещает в себе разделение клиентской части на два основных лэйаута: сайт и администраторская панель.
+Основной упор был сделан на переиспользование компонентов, особенно контейнерных. Было реализовано несколько пользовательских хуков, некоторые из которых расширяют хуки из библиотеки Redux Toolkit.  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Для запросов на сервер была использованная включенная в Redux Toolkit библиотека RTK Query. Она сократила огромное количество кода в редюсерах.
 
-### `npm run build`
+Для всех полей ввода и изображений была использована валидация из React-Hook-Form. Валидация на сервере происходит с помощью express-validator.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Для пагинации страниц была адаптирована UI библиотека Chock UI Paginator.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+В клиенте реализована смена языка, без использования кастомных библиотек. Язык меняется только для интерфейса, добавленные материалы остаются с тем языком с которым были добавлены. Бэкенд всегда будет присылать json с английским текстом.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Страницы приложения
+* Основной лэйаут
+  * Регистрация / Авторизация
+  * Главная страница сайта
+  * Профиль пользователя
+  * Посты пользователя
+  * Страница полного просмотра поста
+* Админлэйаут
+  * Главная страница админпанели (статистика)
+  * Страница всех постов
+  * Страница всех пользователей
+  * Страница редактирования постов
 
-### `npm run eject`
+## Основной стек технологий клиентской части
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* React
+* TypeScript
+* Redux Toolkit + react-redux
+* React-Hook-Form
+* Chakra UI
+  * Chock UI Paginator
+  * EmotionJS
+* FontSource
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Основной стек технологий серверной части
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* Node JS
+* Express JS
+  * express-fileupload
+  * express-validator
+* bcryptjs
+* mongoose
+* jsonwebtoken
+* slugify
+* multer
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Readme
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Содержание репозитория не используется как продакшен проект.

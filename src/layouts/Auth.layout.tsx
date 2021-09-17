@@ -18,13 +18,13 @@ export const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
     <Suspense fallback={<Preloader forInit />}>
       <Container mt={10} p={0} variant={'modal'}>
         <Heading as="h2" size="lg" mb={8} d={'flex'} justifyContent={'center'} alignItems={'center'} >
-          {renderText(lang).COMMON.LOGO} <Icon as={VscRocket} ml={2} />
+          {renderText(lang).BRAND_NAME} <Icon as={VscRocket} ml={2} />
         </Heading>
         <Box bg={'#FCFCFC'} p={8} borderRadius={'lg'} boxShadow={'md'}>
           {children}
         </Box>
         <Text size="sm" mt={8} d={'flex'} justifyContent={'center'} alignItems={'center'} color={'blue.600'} >
-          <Box as={Link} to={'/'} borderBottom={'1px solid'} borderColor={'blue.400'}> Назад на главную </Box>
+          <Box as={Link} to={'/'} borderBottom={'1px solid'} borderColor={'blue.400'}>  {renderText(lang).BACK_TO_MAIN} </Box>
         </Text>
       </Container>
     </Suspense>

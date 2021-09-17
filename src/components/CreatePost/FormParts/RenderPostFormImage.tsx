@@ -5,6 +5,7 @@ import { Flex } from "@chakra-ui/layout"
 import { chakra } from "@chakra-ui/system"
 import { DeepMap, FieldError } from "react-hook-form"
 import { FaUser } from "react-icons/fa"
+import { useLang } from "../../../hooks/lang.hook"
 import { IPostCreateSubmit } from "../../../types/post.interface"
 
 interface IRenderImageProps {
@@ -13,6 +14,9 @@ interface IRenderImageProps {
 }
 
 export const RenderPostFormImage: React.FC<IRenderImageProps> = ({ image, errors }) => {
+
+  const { lang, renderText } = useLang()
+
   if (!image) {
     return (
       <chakra.label borderRadius={'md'}
@@ -26,7 +30,7 @@ export const RenderPostFormImage: React.FC<IRenderImageProps> = ({ image, errors
             _focus={{ shadow: "none" }}
             pointerEvents="none"
           >
-            {!image ? 'Загрузить изображение' : 'Изменить изображение'}
+            {!image ? renderText(lang).SET_IMAGE :  renderText(lang).CHANGE_IMAGE}
           </Button>
         </Flex>
       </chakra.label>
@@ -57,7 +61,7 @@ export const RenderPostFormImage: React.FC<IRenderImageProps> = ({ image, errors
         fontSize={'20px'}
         transition={'all .3s ease'}
       >
-        Изменить изображение
+        {renderText(lang).CHANGE_IMAGE}
       </Flex>
       <Flex alignItems={'center'} w={'100%'}>
         {

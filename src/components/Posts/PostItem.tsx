@@ -3,6 +3,7 @@ import React from 'react';
 import { FiEye } from 'react-icons/fi';
 import { VscAccount, VscCalendar } from 'react-icons/vsc';
 import { Link } from 'react-router-dom';
+import { useLang } from '../../hooks/lang.hook';
 import { IPost } from '../../models/post.interface';
 import { createPrettyDate } from '../../utils/date';
 
@@ -16,6 +17,8 @@ const PostItem: React.FC<IPost> = ({
   views,
   description
 }) => {
+
+  const { lang, renderText } = useLang()
 
   return (
     <Box bg={'#fff'} borderRadius={'md'} overflow={'hidden'} boxShadow={'sm'} pos={'relative'}>
@@ -50,7 +53,7 @@ const PostItem: React.FC<IPost> = ({
         </Box>
         <HStack fontSize={'sm'} mt={'auto'} spacing={3}>
           <Flex alignItems={'center'}>
-            <Icon as={VscAccount} boxSize={'17px'} mr={1} title={'Автор'} />
+            <Icon as={VscAccount} boxSize={'17px'} mr={1} title={renderText(lang).AUTHOR} />
             <Box
               as={Link}
               to={'/profile/' + author.userLogin}
@@ -64,11 +67,11 @@ const PostItem: React.FC<IPost> = ({
             </Box>
           </Flex>
           <Flex alignItems={'center'}>
-            <Icon as={VscCalendar} boxSize={'17px'} mr={1} title={'Дата создания'} />
+            <Icon as={VscCalendar} boxSize={'17px'} mr={1} title={renderText(lang).CREATE_DATE} />
             {createPrettyDate(createDate)}
           </Flex>
           <Flex alignItems={'center'}>
-            <Icon as={FiEye} boxSize={'17px'} mr={1} title={'Отредактировано'} />
+            <Icon as={FiEye} boxSize={'17px'} mr={1} title={renderText(lang).VIEWS} />
             {views}
           </Flex>
 

@@ -23,8 +23,12 @@ export const queryApi = createApi({
       query: ({ token, page, limit, sort }) => {
         return { url: `users?page=${page}&limit=${limit}&sort=${sort}`, headers: { 'Authorization': `Bearer ${token}` } }
       },
+      providesTags: (result) =>
+      result
+        ? [...result.users.map(({ _id }) => ({ type: 'Users' as const, _id })), { type: 'Users', id: 'USERS_LIST' }]
+        : [{ type: 'Users', id: 'USERS_LIST' }],
     }),
-    deleteUser: builder.mutation<any, { userId: string, token: string }>({
+    deleteUser: builder.mutation<any, { userId: number, token: string }>({
       query: ({ userId, token }) => ({ url: `users/delete/${userId}`, method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } }),
       invalidatesTags: ['Users'],
     }),
@@ -40,8 +44,8 @@ export const queryApi = createApi({
     }),
     /*=== Посты ===*/
     getAllPosts: builder.query<{ posts: IPost[], total: number }, { authorLogin: string, page: number, limit: number, sort: string }>({
-      // Отправляет запрос либо с логином автора, либо
       query: ({ authorLogin, page, limit, sort }) => {
+         /*  Отправляет запрос либо с логином автора, либо без */
         return `posts${authorLogin ? '/' + authorLogin : ''}?page=${page}&limit=${limit}&sort=${sort}`
       },
       providesTags: (result) =>
@@ -68,7 +72,6 @@ export const queryApi = createApi({
     }),
   }),
 })
-
 
 export const {
   /*=== Пользователи ===*/

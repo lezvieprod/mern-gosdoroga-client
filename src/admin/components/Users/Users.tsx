@@ -3,6 +3,7 @@ import Pagination from '@choc-ui/paginator';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { CAlertDialog } from '../../../components/common/CAlertDialog';
+import { useLang } from '../../../hooks/lang.hook';
 import { IUser } from '../../../models/user.interface';
 import { USERS_PER_PAGE } from '../../../utils/constants';
 import { UserItem } from './UserItem';
@@ -15,7 +16,7 @@ interface IUsersProps {
   withPagination?: boolean,
   total: number,
   currentPage: string,
-  onDeleteHandle(userId: string): void
+  onDeleteHandle(userId: number): void
 }
 
 export const Users: React.FC<IUsersProps> = ({
@@ -30,10 +31,11 @@ export const Users: React.FC<IUsersProps> = ({
 
   const history = useHistory()
 
-  const [userId, setUserId] = useState<string | null>(null)
+  const [userId, setUserId] = useState<number>(0)
   const [isOpenDeleteDialog, setOpenDeleteDialog] = useState(false)
   const onClose = () => setOpenDeleteDialog(false)
- 
+  const {lang, renderText} = useLang()
+
 
 
   if (isMiniItems) {
@@ -46,12 +48,11 @@ export const Users: React.FC<IUsersProps> = ({
         <Thead>
           <Tr>
             <Th>USER ID</Th>
-            <Th>Логин</Th>
+            <Th>{renderText(lang).LOGIN}</Th>
             <Th>Email</Th>
-            <Th>Дата регистрации</Th>
-            <Th isNumeric>Подтвержденный</Th>
-            <Th isNumeric>Уровень доступа</Th>
-            <Th isNumeric>Действия</Th>
+            <Th>{renderText(lang).REG_DATE}</Th>
+            <Th isNumeric>{renderText(lang).ACCESS_LEVEL}</Th>
+            <Th isNumeric>{renderText(lang).ACTIONS}</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -85,11 +86,11 @@ export const Users: React.FC<IUsersProps> = ({
       <CAlertDialog
         isOpen={isOpenDeleteDialog}
         onClose={onClose}
-        onAgreed={() => onDeleteHandle(String(userId))}
-        dialogHeader={'Вы действительно хотите удалить этого пользователя?'}
-        dialogBody={`Действие невозможно будет отменить. Идентификатор удаляемого пользователя - ${userId}`}
-        cancelButtonText={'Отмена'}
-        agreedButtonText={'Удалить'}
+        onAgreed={() => onDeleteHandle(userId)}
+        dialogHeader={renderText(lang).DELETE_USER_SURE_TITLE}
+        dialogBody={`${renderText(lang).DELETE_USER_SURE_DESC} - ${userId}`}
+        cancelButtonText={renderText(lang).CANCEL}
+        agreedButtonText={renderText(lang).DELETE}
       />
 
     </>

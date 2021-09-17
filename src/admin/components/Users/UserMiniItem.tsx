@@ -1,19 +1,22 @@
 import { Badge, Box, Flex, HStack } from '@chakra-ui/layout';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useLang } from '../../../hooks/lang.hook';
 import { IUser } from '../../../models/user.interface';
 
 export const UserMiniItem: React.FC<IUser> = ({
   userLogin, email, accessLevel, regDate
 }) => {
 
+  const { lang, renderText } = useLang()
+
   return (
     <Flex flexDir={'column'} _hover={{ bg: '#f7f7f7' }} p={1} borderRadius={'md'} pos={'relative'}>
       <Box fontWeight={600}>
         {userLogin}
         {
-         new Date(regDate).getTime() + 60 * 60 * 24 * 1000 >= Date.now()
-            ? <Badge ml={2} colorScheme="blue">Новый</Badge>
+          new Date(regDate).getTime() + 60 * 60 * 24 * 1000 >= Date.now()
+            ? <Badge ml={2} colorScheme="blue">{renderText(lang).NEW}</Badge>
             : null
         }
       </Box>
@@ -23,7 +26,7 @@ export const UserMiniItem: React.FC<IUser> = ({
             {email}
           </Flex>
           <Flex>
-            Уровень доступа: {accessLevel}
+            {renderText(lang).ACCESS_LEVEL}: {accessLevel}
           </Flex>
         </HStack>
       </Box>

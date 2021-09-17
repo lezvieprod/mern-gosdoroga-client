@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router';
+import { PageNoContent } from '../../components/common/PageNoContent';
 import { PageUndefined } from '../../components/common/PageUndefined';
 import { Preloader } from '../../components/common/Preloader';
 import Posts from '../../components/Posts/Posts';
@@ -46,6 +47,8 @@ const PostsContainer: React.FC<IPostsContainerProps> = ({
   }
 
   if (isLoading || isFetching) return <Preloader forInit />
+
+  if (data && !data.posts.length) return <PageNoContent />
 
   if (data) return <Posts
     {...data}

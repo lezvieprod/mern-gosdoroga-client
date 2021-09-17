@@ -12,7 +12,7 @@ interface IProfileProps {
 
 export const Profile: React.FC<IProfileProps> = ({ data }) => {
 
-  const { userPhoto, userLogin, regDate, verified } = data;
+  const { userPhoto, userLogin, regDate, accessLevel } = data;
 
   return (
     <Box>
@@ -32,10 +32,10 @@ export const Profile: React.FC<IProfileProps> = ({ data }) => {
         <ProfileMenu userLogin={userLogin} />
       </Box>
       <Route exact path={'/profile/:userLogin'}>
-        <ProfileInfo regDate={regDate} verified={verified} />
+        <ProfileInfo regDate={regDate} accessLevel={accessLevel} />
       </Route>
-      <Route exact path={'/profile/:userLogin/posts'}>
-        <PostsContainer authorLogin={userLogin} />
+      <Route exact path={['/profile/:userLogin/posts', '/profile/:userLogin/posts/page/:pageNumber']}  >
+        <PostsContainer authorLogin={userLogin} itemsLimit={6} withPagination />
       </Route>
     </Box>
   );

@@ -4,6 +4,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import { PostsAdminItem } from '../../admin/components/PostsAdmin/PostsAdminItem';
 import { PostsAdminMiniItem } from '../../admin/components/PostsAdmin/PostsAdminMiniItem';
+import { useLang } from '../../hooks/lang.hook';
 import { IPost } from '../../models/post.interface';
 import { POSTS_PER_PAGE } from '../../utils/constants';
 import PostItem from './PostItem';
@@ -33,10 +34,11 @@ const Posts: React.FC<IPostsProps> = ({
 }) => {
 
   const history = useHistory()
+  const {lang, renderText} = useLang()
 
   return (
     <>
-      {!authorLogin && !forAdmin && <Heading mb={8} fontSize={'24px'}>Последние посты</Heading>}
+      {!authorLogin && !forAdmin && <Heading mb={8} fontSize={'24px'}>{renderText(lang).LAST_POSTS}</Heading>}
       {
         isMiniItems
           ? posts.map(post => <PostsAdminMiniItem key={post.postId} {...post} />)
@@ -48,8 +50,6 @@ const Posts: React.FC<IPostsProps> = ({
             }
           </SimpleGrid>
       }
-
-
       {
         withPagination && (total > POSTS_PER_PAGE || itemsLimit) &&
         <Flex justifyContent={'center'} mt={8}>
@@ -71,7 +71,7 @@ const Posts: React.FC<IPostsProps> = ({
                 }
               } else {
                 if (authorLogin) {
-                  return history.push(`/${authorLogin}/page/${page}`)
+                  return history.push(`/profile/${authorLogin}/posts/page/${page}`)
                 } else {
                   return history.push(`/page/${page}`)
                 }

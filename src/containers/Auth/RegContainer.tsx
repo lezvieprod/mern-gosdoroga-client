@@ -29,14 +29,13 @@ const RegContainer: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRegistered])
 
-  if (isRegistered) {
-    return <CAlert
-      alertTitle={renderText(lang).AUTH.REG.ALERT_SUCCESS_REG_TITLE}
-      alertDescription={renderText(lang).AUTH.REG.ALERT_SUCCESS_REG_DESC}
-      forAuth={true}
-      initialTime={initialTime}
-    />
-  }
+  if (isRegistered) return <CAlert
+    alertTitle={renderText(lang).ALERT_SUCCESS_REG_TITLE}
+    alertDescription={renderText(lang).ALERT_SUCCESS_REG_DESC}
+    forAuth={true}
+    initialTime={initialTime}
+  />
+
 
   return <Reg onSubmitHandle={onSubmitHandle} isLoading={isLoading} />
 

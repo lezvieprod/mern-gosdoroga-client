@@ -7,6 +7,7 @@ import { createPrettyDate } from '../../utils/date';
 import Icon from '@chakra-ui/icon';
 import { VscAccount, VscCalendar, VscEdit } from 'react-icons/vsc';
 import { FiEye } from 'react-icons/fi';
+import { useLang } from '../../hooks/lang.hook';
 
 
 export const PostPage: React.FC<IPost> = ({
@@ -19,6 +20,8 @@ export const PostPage: React.FC<IPost> = ({
   views
 }) => {
 
+  const { lang, renderText } = useLang()
+
   return (
     <Box bg={'#fff'} boxShadow={'sm'} borderRadius={'md'} py={12}>
       <Container variant={'modal'}>
@@ -27,32 +30,33 @@ export const PostPage: React.FC<IPost> = ({
         </Heading>
         <HStack mt={4} spacing={5}>
           <Flex alignItems={'center'}>
-            <Icon as={VscAccount} boxSize={'17px'} mr={1} title={'Автор'} />
+            <Icon as={VscAccount} boxSize={'17px'} mr={1} title={renderText(lang).AUTHOR} />
             <Box
               as={Link}
               to={'/profile/' + author.userLogin}
               ml={1}
               zIndex={5}
               pos={'relative'}
-              sx={{ '&:hover': { borderBottom: '1px solid', borderColor: 'blue.400' } }}
+              borderBottom={'1px solid transparent'}
+              sx={{ '&:hover': { borderColor: 'blue.400' } }}
             >
               {author.userLogin}
             </Box>
           </Flex>
           <Flex alignItems={'center'}>
-            <Icon as={VscCalendar} boxSize={'17px'} mr={1} title={'Дата создания'} />
+            <Icon as={VscCalendar} boxSize={'17px'} mr={1} title={renderText(lang).CREATE_DATE} />
             {createPrettyDate(createDate)}
           </Flex>
           {
             lastEdited
             &&
             <Flex alignItems={'center'}>
-              <Icon as={VscEdit} boxSize={'17px'} mr={1} title={'Отредактировано'} />
+              <Icon as={VscEdit} boxSize={'17px'} mr={1} title={renderText(lang).EDITED} />
               {' ' + new Date(lastEdited).toLocaleString('ru', { year: 'numeric', month: 'numeric', day: 'numeric' })}
             </Flex>
           }
           <Flex alignItems={'center'}>
-            <Icon as={FiEye} boxSize={'17px'} mr={1} title={'Отредактировано'} />
+            <Icon as={FiEye} boxSize={'17px'} mr={1} title={renderText(lang).VIEWS} />
             {views}
           </Flex>
         </HStack>

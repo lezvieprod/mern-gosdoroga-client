@@ -11,6 +11,7 @@ import { IPostCreateSubmit } from '../../types/post.interface';
 import { AVAILABLE_POST_IMAGE_FORMATS } from '../../utils/constants';
 import { PostDescriptionValidateParams, PostImageBeforeValidateParams, PostTitleValidateParams, renderFieldError } from '../../utils/validations';
 import { RenderPostFormImage } from './FormParts/RenderPostFormImage';
+import { useLang } from '../../hooks/lang.hook';
 
 interface ICreatePostProps {
   isLoading: boolean,
@@ -22,6 +23,8 @@ export const CreatePost: React.FC<ICreatePostProps> = ({ onCreatePostHandle, isL
   const { register, handleSubmit, watch, getValues, formState: { errors } } = useForm<IPostCreateSubmit>();
   const [image, setImage] = useState<FileList>()
   const imageBefore: FileList | undefined = watch('postImageBefore') && watch('postImageBefore').length && getValues().postImageBefore
+  const { lang, renderText } = useLang()
+
 
   const onSubmit = handleSubmit(data => {
     let createPostFormData = new FormData();
@@ -39,16 +42,16 @@ export const CreatePost: React.FC<ICreatePostProps> = ({ onCreatePostHandle, isL
     <Box bg={'#fff'} boxShadow={'sm'} borderRadius={'md'} p={8}>
       <form onSubmit={onSubmit} >
         <VStack spacing={6} align="stretch" mb={6}>
-          <Heading as={'h1'} fontSize={'x-large'}>Добавление поста</Heading>
+          <Heading as={'h1'} fontSize={'x-large'}>{renderText(lang).ADD_POST_TITLE}</Heading>
           <FormControl id="title" isInvalid={!!errors.postTitle}>
-            <FormLabel>Заголовок</FormLabel>
+            <FormLabel>{renderText(lang).HEADING}</FormLabel>
             <Input type="text" {...register("postTitle", PostTitleValidateParams)} />
             <FormErrorMessage>
               {errors.postTitle && renderFieldError('postTitle', errors.postTitle.type)}
             </FormErrorMessage>
           </FormControl>
           <FormControl id="postDescription" isInvalid={!!errors.postDescription}>
-            <FormLabel>Описание</FormLabel>
+            <FormLabel>{renderText(lang).DESCRIPTION}</FormLabel>
             <Textarea
               {...register("postDescription", PostDescriptionValidateParams)}
               size="sm"
@@ -61,7 +64,7 @@ export const CreatePost: React.FC<ICreatePostProps> = ({ onCreatePostHandle, isL
           </FormControl>
           <FormControl isInvalid={!!errors.postImageBefore}>
             <FormLabel>
-              Фотография
+              {renderText(lang).IMAGE}
             </FormLabel>
             <Flex alignItems="center" flexWrap={'wrap'}>
               {/* Рендеринг изображения */}
@@ -83,7 +86,7 @@ export const CreatePost: React.FC<ICreatePostProps> = ({ onCreatePostHandle, isL
                       {...register("postImageBefore", PostImageBeforeValidateParams)} />
                   </VisuallyHidden>
                 </chakra.label>
-                <Text mt={2} fontSize={'sm'} color={'gray.500'}>Разрешенные форматы: {AVAILABLE_POST_IMAGE_FORMATS.join(", ")}</Text>
+                <Text mt={2} fontSize={'sm'} color={'gray.500'}>{renderText(lang).PERMITTED_FORMATS}: {AVAILABLE_POST_IMAGE_FORMATS.join(", ")}</Text>
               </Box>
             </Flex>
             <FormErrorMessage mt={2}>
@@ -92,7 +95,7 @@ export const CreatePost: React.FC<ICreatePostProps> = ({ onCreatePostHandle, isL
           </FormControl>
         </VStack>
         <Button type={'submit'} px={10} colorScheme="blue" variant="solid" isLoading={isLoading}>
-          Добавить пост
+        {renderText(lang).ADD_POST}
         </Button>
       </form>
     </Box>
